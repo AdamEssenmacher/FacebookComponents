@@ -3,10 +3,6 @@
 var FB_VERSION = "11.2.0";
 var NUGET_VERSION = "11.2.0.1";
 
-var BUILD_COMMIT = EnvironmentVariable("BUILD_COMMIT") ?? "DEV";
-var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "DEBUG";
-var BUILD_TIMESTAMP = DateTime.UtcNow.ToString();
-
 var TARGET = Argument ("t", Argument ("target", "ci"));
 
 var ARTIFACTS = new List<ArtifactInfo> {
@@ -67,7 +63,6 @@ Task ("externals")
 
 Task ("libs")
 	.IsDependentOn("externals")
-	.IsDependentOn("ci-setup")
 	.Does(() =>
 {
 	MSBuild("./source/Xamarin.Facebook.AdamE.slnf", c => 
@@ -115,18 +110,6 @@ Task ("nuget")
 			.WithProperty("DesignTimeBuild", "false")
  			.WithTarget("Pack"));	
 	}
-});
-
-
-Task ("ci-setup")
-	.WithCriteria (!BuildSystem.IsLocalBuild)
-	.Does (() => 
-{
-	var glob = "./source/**/AssemblyInfo.cs";
-
-	ReplaceTextInFiles(glob, "{BUILD_COMMIT}", BUILD_COMMIT);
-	ReplaceTextInFiles(glob, "{BUILD_NUMBER}", BUILD_NUMBER);
-	ReplaceTextInFiles(glob, "{BUILD_TIMESTAMP}", BUILD_TIMESTAMP);
 });
 
 Task ("clean")
