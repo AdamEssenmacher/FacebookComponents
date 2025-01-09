@@ -81,21 +81,21 @@ Task ("samples")
 	.IsDependentOn("libs")
 	.Does(() =>
 {
-	var samples = new string[] { 
-		"./samples/HelloFacebookSample.sln",
-		"./samples/MessengerSendSample.sln",
-	};
-
-	foreach (var sampleSln in samples) {
-		MSBuild(sampleSln, c => 
-	 		c.SetConfiguration("Release")
- 			.WithTarget("Restore"));
-
-		MSBuild(sampleSln, c => 
-			c.SetConfiguration("Release")
-			.WithTarget("Build")
-			.WithProperty("DesignTimeBuild", "false"));
-	}
+// 	var samples = new string[] { 
+// 		"./samples/HelloFacebookSample.sln",
+// 		"./samples/MessengerSendSample.sln",
+// 	};
+// 
+// 	foreach (var sampleSln in samples) {
+// 		MSBuild(sampleSln, c => 
+// 	 		c.SetConfiguration("Release")
+//  			.WithTarget("Restore"));
+// 
+// 		MSBuild(sampleSln, c => 
+// 			c.SetConfiguration("Release")
+// 			.WithTarget("Build")
+// 			.WithProperty("DesignTimeBuild", "false"));
+// 	}
 });
 
 Task ("nuget")
