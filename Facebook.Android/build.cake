@@ -70,7 +70,7 @@ Task ("libs")
 	.IsDependentOn("ci-setup")
 	.Does(() =>
 {
-	MSBuild("./source/Xamarin.Facebook.sln", c => 
+	MSBuild("./source/Xamarin.Facebook.AdamE.slnf", c => 
 		c.SetConfiguration("Release")
 		.WithRestore()
  		.WithTarget("Build")
@@ -132,7 +132,7 @@ Task ("ci-setup")
 Task ("clean")
 	.Does (() => 
 {
-	MSBuild("./source/Xamarin.Facebook.sln", c => 
+	MSBuild("./source/Xamarin.Facebook.AdamE.slnf", c => 
 		c.SetConfiguration("Release")
  		.WithTarget("Clean"));
 
