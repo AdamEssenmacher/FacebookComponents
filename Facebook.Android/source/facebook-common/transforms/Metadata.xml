@@ -37,4 +37,9 @@
 
     <remove-node path="/api/package[@name='com.facebook.login']/class[@name='LoginFragment']/method[@name='createLoginClient' and count(parameter)=0]" />
     <remove-node path="/api/package[@name='com.facebook.login']/class[@name='LoginMethodHandler']/field[@name='loginClient']" />
+
+    <remove-node path="/api/package[@name='com.facebook.login']/class[@name='NativeAppLoginMethodHandler']/method[@name='tryAuthorize']" />
+
+    <attr path="/api/package[@name='com.facebook.share.widget']/class[@name='ShareDialog']/method[@name='getShouldFailOnDataError']" name="visibility">public</attr>
+    <attr path="/api/package[@name='com.facebook.share.widget']/class[@name='ShareDialog']/method[@name='setShouldFailOnDataError']" name="visibility">public</attr>
 </metadata>

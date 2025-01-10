@@ -1,7 +1,7 @@
 #addin nuget:?package=Cake.FileHelpers&version=3.2.1
 
-var FB_VERSION = "11.2.0";
-var NUGET_VERSION = "11.2.0.1";
+var FB_VERSION = "17.0.2";
+var NUGET_VERSION = "17.0.2.0";
 
 var TARGET = Argument ("t", Argument ("target", "ci"));
 
