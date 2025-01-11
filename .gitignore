@@ -13,3 +13,5 @@ _._
 **/Resource.designer.cs
 *.binlog
 *.log
+
+.idea/
