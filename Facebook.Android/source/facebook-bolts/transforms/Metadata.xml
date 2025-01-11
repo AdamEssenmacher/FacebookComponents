@@ -1,2 +1,6 @@
 <metadata>
+    <attr path="/api/package[@name='com.facebook.bolts']" name="managedName">Xamarin.Facebook.Bolts</attr>
+
+    <attr path="/api/package[@name='com.facebook.bolts']/class[@name='AggregateException.Companion']" name="managedName">AggregateExceptionCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.bolts']/class[@name='Task.Companion']" name="managedName">TaskCompanion</attr>
 </metadata>
