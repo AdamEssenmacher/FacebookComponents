@@ -14,15 +14,15 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Xamarin.Facebook.Core.Android</PackageId>
+    <PackageId>AdamE.Facebook.Core.Android</PackageId>
     <Title>Xamarin Facebook Android - Core</Title>
     <Summary>Xamarin.Android bindings for Facebook Android - Core</Summary>
     <Description>Xamarin.Android bindings for Facebook Android - Core</Description>
     <PackageTags>Xamarin Android Xamarin.Android Facebook</PackageTags>
-    <Authors>Microsoft</Authors>
-    <Owners>Microsoft</Owners>
-    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <PackageProjectUrl>https://go.microsoft.com/fwlink/?linkid=865581</PackageProjectUrl>
+    <Authors>Microsoft, Adam Essenmacher</Authors>
+    <Owners>Adam Essenmacher</Owners>
+    <Copyright>© Microsoft Corporation. All rights reserved. © 2025, Adam Essenmacher.</Copyright>
+    <PackageProjectUrl>https://github.com/AdamEssenmacher/FacebookComponents</PackageProjectUrl>
     <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=865585</PackageLicenseUrl>
 
     <PackageIcon>facebook-android_128x128.png</PackageIcon>
