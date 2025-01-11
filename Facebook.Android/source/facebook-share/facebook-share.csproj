@@ -24,10 +24,14 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <PackageProjectUrl>https://go.microsoft.com/fwlink/?linkid=865581</PackageProjectUrl>
     <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=865585</PackageLicenseUrl>
-    
-    <PackageIconUrl>https://raw.githubusercontent.com/xamarin/FacebookComponents/master/icons/facebook-android_128x128.png</PackageIconUrl>
+
+    <PackageIcon>facebook-android_128x128.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../../icons/facebook-android_128x128.png" Pack="True" PackagePath="facebook-android_128x128.png" />
+  </ItemGroup>
 
   <PropertyGroup>
     <AndroidClassParser>class-parse</AndroidClassParser>
