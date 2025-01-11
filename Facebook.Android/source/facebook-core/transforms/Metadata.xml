@@ -36,10 +36,82 @@
     
    <remove-node path="/api/package[@name='com.facebook.appevents.internal']/class[@name='FileDownloadTask']/method[@name='doInBackground' and count(parameter)=1 and parameter[1][@type='java.lang.String...']]" />
 
-   <remove-node path="/api/package[@name='com.facebook.internal.logging.dumpsys']/class[@name='AndroidRootResolver.ListenableArrayList']/method[@name='size' and count(parameter)=0]" />
-
    <remove-node path="/api/package[@name='com.facebook']/class[@name='GraphRequestBatch']/method[@name='size' and count(parameter)=0]" />
 
    <remove-node path="/api/package[@name='com.facebook']/class[@name='GraphRequestBatch']/method[@name='getSize' and count(parameter)=0]" />
+
+    <attr path="/api/package[@name='com.facebook.core']/class[@name='Core']" name="managedName">CoreClass</attr>
+    <attr path="/api/package[@name='com.facebook.internal.gatekeeper']/class[@name='GateKeeper']" name="managedName">GateKeeperClass</attr>
+    
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='BoltsMeasurementEventListener']/method[@name='finalize']" name="managedName">JavaFinalize</attr>
+
+    <!-- 'Companion' nested classes need to be renamed so they don't cause duplicate nested naming problems. -->
+    <attr path="/api/package[@name='com.facebook']/class[@name='AccessToken.Companion']" name="managedName">AccessTokenCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='AccessTokenManager.Companion']" name="managedName">AccessTokenManagerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='AuthenticationToken.Companion']" name="managedName">AuthenticationTokenCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='AuthenticationTokenCache.Companion']" name="managedName">AuthenticationTokenCacheCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='AuthenticationTokenClaims.Companion']" name="managedName">AuthenticationTokenClaimsCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='AuthenticationTokenHeader.Companion']" name="managedName">AuthenticationTokenHeaderCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='AuthenticationTokenManager.Companion']" name="managedName">AuthenticationTokenManagerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookContentProvider.Companion']" name="managedName">FacebookContentProviderCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookException.Companion']" name="managedName">FacebookExceptionCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookOperationCanceledException.Companion']" name="managedName">FacebookOperationCanceledExceptionCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookRequestError.Companion']" name="managedName">FacebookRequestErrorCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookSdkNotInitializedException.Companion']" name="managedName">FacebookSdkNotInitializedExceptionCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookServiceException.Companion']" name="managedName">FacebookServiceExceptionCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='GraphRequest.Companion']" name="managedName">GraphRequestCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='GraphRequest.ParcelableResourceWithMimeType.Companion']" name="managedName">GraphRequest.ParcelableResourceWithMimeTypeCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='GraphRequestAsyncTask.Companion']" name="managedName">GraphRequestAsyncTaskCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='GraphRequestBatch.Companion']" name="managedName">GraphRequestBatchCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='GraphResponse.Companion']" name="managedName">GraphResponseCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='Profile.Companion']" name="managedName">ProfileCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='ProfileCache.Companion']" name="managedName">ProfileCacheCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='ProfileManager.Companion']" name="managedName">ProfileManagerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents']/class[@name='AccessTokenAppIdPair.Companion']" name="managedName">AccessTokenAppIdPairCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents']/class[@name='AppEvent.Companion']" name="managedName">AppEventCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents']/class[@name='AppEventsLogger.Companion']" name="managedName">AppEventsLoggerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents']/class[@name='InternalAppEventsLogger.Companion']" name="managedName">InternalAppEventsLoggerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.aam']/class[@name='MetadataRule.Companion']" name="managedName">MetadataRuleCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.codeless']/class[@name='ViewIndexer.Companion']" name="managedName">ViewIndexerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.codeless.internal']/class[@name='EventBinding.Companion']" name="managedName">EventBindingCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.codeless.internal']/class[@name='ParameterComponent.Companion']" name="managedName">ParameterComponentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.codeless.internal']/class[@name='PathComponent.Companion']" name="managedName">PathComponentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.iap']/class[@name='InAppPurchaseBillingClientWrapper.Companion']" name="managedName">InAppPurchaseBillingClientWrapperCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.iap']/class[@name='InAppPurchaseSkuDetailsWrapper.Companion']" name="managedName">InAppPurchaseSkuDetailsWrapperCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.internal']/class[@name='AppLinkManager.Companion']" name="managedName">AppLinkManagerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.ml']/class[@name='Model.Companion']" name="managedName">ModelCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.ml']/class[@name='ModelManager.TaskHandler.Companion']" name="managedName">ModelManager.TaskHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.ml']/class[@name='MTensor.Companion']" name="managedName">MTensorCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.appevents.suggestedevents']/class[@name='ViewOnClickListener.Companion']" name="managedName">ViewOnClickListenerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='AttributionIdentifiers.Companion']" name="managedName">AttributionIdentifiersCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='BoltsMeasurementEventListener.Companion']" name="managedName">BoltsMeasurementEventListenerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='CallbackManagerImpl.Companion']" name="managedName">CallbackManagerImplCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FacebookInitProvider.Companion']" name="managedName">FacebookInitProviderCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FacebookRequestErrorClassification.Companion']" name="managedName">FacebookRequestErrorClassificationCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FeatureManager.Feature.Companion']" name="managedName">FeatureManager.FeatureCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FetchedAppSettings.Companion']" name="managedName">FetchedAppSettingsCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FetchedAppSettings.DialogFeatureConfig.Companion']" name="managedName">FetchedAppSettings.DialogFeatureConfigCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FileLruCache.Companion']" name="managedName">FileLruCacheCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='ImageDownloader.RequestKey.Companion']" name="managedName">ImageDownloader.RequestKeyCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='ImageRequest.Companion']" name="managedName">ImageRequestCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='Logger.Companion']" name="managedName">LoggerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='NativeProtocol.ProtocolVersionQueryResult.Companion']" name="managedName">NativeProtocol.ProtocolVersionQueryResultCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='SmartLoginOption.Companion']" name="managedName">SmartLoginOptionCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='WorkQueue.Companion']" name="managedName">WorkQueueCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal.instrument']/class[@name='InstrumentData.Companion']" name="managedName">InstrumentDataCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal.instrument.crashreport']/class[@name='CrashHandler.Companion']" name="managedName">CrashHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal.instrument.errorreport']/class[@name='ErrorReportData.Companion']" name="managedName">ErrorReportDataCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginTargetApp.Companion']" name="managedName">LoginTargetAppCompanion</attr>
+
+    <!-- I think 'Companion' fields on enums can just be ignored? -->
+    <remove-node path="/api/package[@name='com.facebook.appevents.cloudbridge']/class[@name='AppEventsConversionsAPITransformer.DataProcessingParameterName']/field[@name='Companion']" />
+    <remove-node path="/api/package[@name='com.facebook.appevents.cloudbridge']/class[@name='AppEventsConversionsAPITransformer.ValueTransformationType']/field[@name='Companion']" />
+    <remove-node path="/api/package[@name='com.facebook.appevents.cloudbridge']/class[@name='AppEventType']/field[@name='Companion']" />
+    <remove-node path="/api/package[@name='com.facebook.appevents.cloudbridge']/class[@name='AppEventUserAndAppDataField']/field[@name='Companion']" />
+    <remove-node path="/api/package[@name='com.facebook.appevents.cloudbridge']/class[@name='CustomEventField']/field[@name='Companion']" />
+
+    <remove-node path="/api/package[@name='com.facebook']/class[@name='AccessToken']/field[@name='DATA_ACCESS_EXPIRATION_TIME']" />
+    <remove-node path="/api/package[@name='com.facebook']/class[@name='AccessToken']/field[@name='GRAPH_DOMAIN']" />
+    <remove-node path="/api/package[@name='com.facebook']/class[@name='GraphRequest']/field[@name='TAG']" />
 
 </metadata>
