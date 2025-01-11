@@ -23,7 +23,7 @@
     <Owners>Adam Essenmacher</Owners>
     <Copyright>© Microsoft Corporation. All rights reserved. © 2025, Adam Essenmacher.</Copyright>
     <PackageProjectUrl>https://github.com/AdamEssenmacher/FacebookComponents</PackageProjectUrl>
-    <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=865585</PackageLicenseUrl>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
 
     <PackageIcon>facebook-android_128x128.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <None Include="../../../icons/facebook-android_128x128.png" Pack="True" PackagePath="facebook-android_128x128.png" />
+    <None Include="../../../License.md" Pack="True" PackagePath="License.md" />
   </ItemGroup>
 
   <PropertyGroup>
