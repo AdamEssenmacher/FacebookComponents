@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <AndroidCodegenTarget>XAJavaInterop1</AndroidCodegenTarget>
-    <TargetFrameworks>MonoAndroid90</TargetFrameworks>
+    <TargetFramework>MonoAndroid90</TargetFramework>
     <IsBindingProject>true</IsBindingProject>
 
-    <AssemblyName>Xamarin.Facebook.Core.Android</AssemblyName>
+    <AssemblyName>Xamarin.Facebook.Bolts.Android</AssemblyName>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
@@ -14,10 +14,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Xamarin.Facebook.Core.Android</PackageId>
-    <Title>Xamarin Facebook Android - Core</Title>
-    <Summary>Xamarin.Android bindings for Facebook Android - Core</Summary>
-    <Description>Xamarin.Android bindings for Facebook Android - Core</Description>
+    <PackageId>Xamarin.Facebook.Bolts.Android</PackageId>
+    <Title>Xamarin Facebook Android - Bolts</Title>
+    <Summary>Xamarin.Android bindings for Facebook Android - Bolts</Summary>
+    <Description>Xamarin.Android bindings for Facebook Android - Bolts</Description>
     <PackageTags>Xamarin Android Xamarin.Android Facebook</PackageTags>
     <Authors>Microsoft</Authors>
     <Owners>Microsoft</Owners>
@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <Java8DocPaths>..\..\externals\facebook-core-docs\</Java8DocPaths>
+    <Java8DocPaths>..\..\externals\facebook-bolts-docs\</Java8DocPaths>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,17 +46,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <LibraryProjectZip Include="..\..\externals\facebook-core.aar" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\facebook-bolts\facebook-bolts.csproj" />
+    <LibraryProjectZip Include="..\..\externals\facebook-bolts.aar" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Xamarin.AndroidX.Annotation" Version="1.2.0.1" />
-    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.Utils" Version="1.0.0.1" />
-    <PackageReference Include="Xamarin.Android.Binding.InstallReferrer" Version="2.2.0" />
     <PackageReference Include="Xamarin.AndroidX.Core.Core.Ktx" Version="1.5.0" />
     <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.5.10" />
   </ItemGroup>

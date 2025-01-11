@@ -2,6 +2,7 @@
   "solution": {
     "path": "Xamarin.Facebook.sln",
     "projects": [
+      "facebook-bolts\\facebook-bolts.csproj",
       "facebook-common\\facebook-common.csproj",
       "facebook-core\\facebook-core.csproj",
       "facebook-share\\facebook-share.csproj"

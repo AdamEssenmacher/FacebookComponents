@@ -7,6 +7,7 @@ var TARGET = Argument ("t", Argument ("target", "ci"));
 
 var ARTIFACTS = new List<ArtifactInfo> {
 	//new ArtifactInfo("facebook-android-sdk", FB_VERSION, NUGET_VERSION),
+	new ArtifactInfo("facebook-bolts", FB_VERSION, NUGET_VERSION),
 	new ArtifactInfo("facebook-core", FB_VERSION, NUGET_VERSION),
 	new ArtifactInfo("facebook-common", FB_VERSION, NUGET_VERSION),
 	//new ArtifactInfo("facebook-login", FB_VERSION, NUGET_VERSION),
