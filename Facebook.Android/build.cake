@@ -66,11 +66,8 @@ Task ("libs")
 	.IsDependentOn("externals")
 	.Does(() =>
 {
-	MSBuild("./source/Xamarin.Facebook.AdamE.slnf", c => 
-		c.SetConfiguration("Release")
-		.WithRestore()
- 		.WithTarget("Build")
-		.WithProperty("DesignTimeBuild", "false"));
+    var buildSettings = new DotNetBuildSettings { Configuration = "Release" };
+    DotNetBuild("./source/Xamarin.Facebook.AdamE.slnf", buildSettings);
 });
 
 Task ("samples")
@@ -102,14 +99,14 @@ Task ("nuget")
 
 	foreach (var art in ARTIFACTS) {
 		var csproj = "./source/" + art.ArtifactId + "/" + art.ArtifactId + ".csproj";
+		
+		var buildSettings = new DotNetPackSettings
+		{
+            Configuration = "Release",
+            OutputDirectory = MakeAbsolute((DirectoryPath)"./output/").FullPath
+		};
 
-		MSBuild(csproj, c => 
-			c.SetConfiguration("Release")
-			.WithProperty("NoBuild", "true")
-			.WithProperty("PackageVersion", art.NugetVersion)
-			.WithProperty("PackageOutputPath", MakeAbsolute((DirectoryPath)"./output/").FullPath)
-			.WithProperty("DesignTimeBuild", "false")
- 			.WithTarget("Pack"));	
+		DotNetPack(csproj, buildSettings);	
 	}
 });
 

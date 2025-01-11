@@ -4,6 +4,6 @@
     "rollForward": "latestPatch"
   },
   "msbuild-sdks": {
-    "Xamarin.Legacy.Sdk": "0.1.2-alpha6"
+    "Xamarin.Legacy.Sdk": "0.2.0-alpha4"
   }
 }
