@@ -1,4 +1,4 @@
-#addin nuget:?package=Cake.FileHelpers&version=3.2.1
+#addin nuget:?package=Cake.FileHelpers&version=7.0.0
 
 var FB_VERSION = "17.0.2";
 var NUGET_VERSION = "17.0.2.0";
