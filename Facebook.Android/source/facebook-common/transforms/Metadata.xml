@@ -40,6 +40,10 @@
 
     <remove-node path="/api/package[@name='com.facebook.login']/class[@name='NativeAppLoginMethodHandler']/method[@name='tryAuthorize']" />
 
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginManager.FacebookLoginActivityResultContract']/method[@name='parseResult']" name="managedReturn">Java.Lang.Object</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginManager.FacebookLoginActivityResultContract']/method[@name='createIntent']/parameter[2]" name="managedType">Java.Lang.Object</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginManager.FacebookLoginActivityResultContract']/method[@name='createIntent']/parameter[2]" name="type">java.lang.Object</attr>
+
     <attr path="/api/package[@name='com.facebook.share.widget']/class[@name='ShareDialog']/method[@name='getShouldFailOnDataError']" name="visibility">public</attr>
     <attr path="/api/package[@name='com.facebook.share.widget']/class[@name='ShareDialog']/method[@name='setShouldFailOnDataError']" name="visibility">public</attr>
 </metadata>

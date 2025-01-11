@@ -42,9 +42,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Xamarin.Kotlin.StdLib.Jdk8" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\External-Dependency-Info.txt" Pack="True" PackagePath="THIRD-PARTY-NOTICES.txt" />
   </ItemGroup>
 
@@ -58,11 +55,13 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Google.ZXing.Core" Version="3.3.3" PrivateAssets="None" />
+    <PackageReference Include="Xamarin.AndroidX.Activity" Version="1.2.0" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.1.0.1" />
+    <PackageReference Include="Xamarin.AndroidX.Fragment" Version="1.3.0" />
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.1" />
     <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.1" />
     <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.2.0.1" />
-    <PackageReference Include="Xamarin.Kotlin.StdLib.Jdk8" Version="1.5.10" />
+    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.5.10" />
   </ItemGroup>
 
 </Project>
