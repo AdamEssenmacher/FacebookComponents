@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <AndroidCodegenTarget>XAJavaInterop1</AndroidCodegenTarget>
-    <TargetFramework>MonoAndroid90</TargetFramework>
+    <TargetFramework>MonoAndroid12.0</TargetFramework>
     <IsBindingProject>true</IsBindingProject>
 
     <AssemblyName>Xamarin.Facebook.Bolts.Android</AssemblyName>
