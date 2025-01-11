@@ -29,7 +29,6 @@
     <attr path="/api/package[@name='com.facebook.share.model']/class[@name='CameraEffectTextures.Builder']/method[@name='build' and count(parameter)=0]" name="managedReturn">Java.Lang.Object</attr>
     <attr path="/api/package[@name='com.facebook.share.model']/class[@name='CameraEffectArguments.Builder']/method[@name='build' and count(parameter)=0]" name="managedReturn">Java.Lang.Object</attr>
     <attr path="/api/package[@name='com.facebook.share.model']/class[@name='GameRequestContent.Builder']/method[@name='build' and count(parameter)=0]" name="managedReturn">Java.Lang.Object</attr>
-    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareMessengerGenericTemplateElement.Builder']/method[@name='build' and count(parameter)=0]" name="managedReturn">Java.Lang.Object</attr>
 
 
     <!-- FacebookDialogBase has an abstract IList OrderedModeHandlers and the generator tries to create proper generic list types, but that doesn't match the overridden member -->
@@ -46,4 +45,62 @@
 
     <attr path="/api/package[@name='com.facebook.share.widget']/class[@name='ShareDialog']/method[@name='getShouldFailOnDataError']" name="visibility">public</attr>
     <attr path="/api/package[@name='com.facebook.share.widget']/class[@name='ShareDialog']/method[@name='setShouldFailOnDataError']" name="visibility">public</attr>
+
+    <attr path="/api/package[@name='com.facebook']/class[@name='AccessTokenTracker.Companion']" name="managedName">AccessTokenTrackerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='AuthenticationTokenTracker.Companion']" name="managedName">AuthenticationTokenTrackerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='CustomTabActivity.Companion']" name="managedName">CustomTabActivityCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='CustomTabMainActivity.Companion']" name="managedName">CustomTabMainActivityCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookActivity.Companion']" name="managedName">FacebookActivityCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookAuthorizationException.Companion']" name="managedName">FacebookAuthorizationExceptionCompanion</attr>
+    <attr path="/api/package[@name='com.facebook']/class[@name='FacebookDialogException.Companion']" name="managedName">FacebookDialogExceptionCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='AppCall.Companion']" name="managedName">AppCallCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='CustomTab.Companion']" name="managedName">CustomTabCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FacebookDialogBase.Companion']" name="managedName">FacebookDialogBaseCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FacebookDialogFragment.Companion']" name="managedName">FacebookDialogFragmentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='FacebookWebFallbackDialog.Companion']" name="managedName">FacebookWebFallbackDialogCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='InstagramCustomTab.Companion']" name="managedName">InstagramCustomTabCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.internal']/class[@name='WebDialog.Companion']" name="managedName">WebDialogCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='CustomTabLoginMethodHandler.Companion']" name="managedName">CustomTabLoginMethodHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='CustomTabPrefetchHelper.Companion']" name="managedName">CustomTabPrefetchHelperCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='DeviceAuthDialog.Companion']" name="managedName">DeviceAuthDialogCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='DeviceAuthMethodHandler.Companion']" name="managedName">DeviceAuthMethodHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='GetTokenLoginMethodHandler.Companion']" name="managedName">GetTokenLoginMethodHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='KatanaProxyLoginMethodHandler.Companion']" name="managedName">KatanaProxyLoginMethodHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginClient.Companion']" name="managedName">LoginClientCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginClient.Request.Companion']" name="managedName">LoginClientRequestCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginClient.Result.Companion']" name="managedName">LoginClient.ResultCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginClient.Result.Code']" name="managedName">LoginClient.ResultCode</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginConfiguration.Companion']" name="managedName">LoginConfigurationCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginFragment.Companion']" name="managedName">LoginFragmentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginManager.Companion']" name="managedName">LoginManagerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='LoginMethodHandler.Companion']" name="managedName">LoginMethodHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='WebLoginMethodHandler.Companion']" name="managedName">WebLoginMethodHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='WebViewLoginMethodHandler.Companion']" name="managedName">WebViewLoginMethodHandlerCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='AppGroupCreationContent.Companion']" name="managedName">AppGroupCreationContentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='CameraEffectArguments.Companion']" name="managedName">CameraEffectArgumentsCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='CameraEffectTextures.Companion']" name="managedName">CameraEffectTexturesCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='GameRequestContent.Companion']" name="managedName">GameRequestContentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareCameraEffectContent.Companion']" name="managedName">ShareCameraEffectContentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareHashtag.Companion']" name="managedName">ShareHashtagCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareLinkContent.Companion']" name="managedName">ShareLinkContentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareMedia.Builder.Companion']" name="managedName">ShareMedia.BuilderCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareMediaContent.Companion']" name="managedName">ShareMediaContentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareMessengerURLActionButton.Companion']" name="managedName">ShareMessengerURLActionButtonCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='SharePhoto.Companion']" name="managedName">SharePhotoCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='SharePhoto.Builder.Companion']" name="managedName">SharePhoto.BuilderCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='SharePhotoContent.Companion']" name="managedName">SharePhotoContentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareStoryContent.Companion']" name="managedName">ShareStoryContentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareVideo.Companion']" name="managedName">ShareVideoCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.model']/class[@name='ShareVideoContent.Companion']" name="managedName">ShareVideoContentCompanion</attr>
+    <attr path="/api/package[@name='com.facebook.share.widget']/class[@name='ShareDialog.Companion']" name="managedName">ShareDialogCompanion</attr>
+
+    <remove-node path="/api/package[@name='com.facebook.internal']/class[@name='FacebookDialogBase.ModeHandler']/method[@name='canShow']" />
+    <remove-node path="/api/package[@name='com.facebook.internal']/class[@name='FacebookDialogBase.ModeHandler']/method[@name='createAppCall']" />
+
+    <attr path="/api/package[@name='com.facebook.common']/class[@name='Common']" name="managedName">CommonClass</attr>
+
+    <remove-node path="/api/package[@name='com.facebook.internal']/class[@name='FacebookDialogFragment']/field[@name='TAG']" />
+
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='WebViewLoginMethodHandler.AuthDialogBuilder']/field[@name='authType']" name="managedName">AuthTypeField</attr>
+    <attr path="/api/package[@name='com.facebook.login']/class[@name='WebViewLoginMethodHandler.AuthDialogBuilder']/field[@name='e2e']" name="managedName">E2eField</attr>
 </metadata>
