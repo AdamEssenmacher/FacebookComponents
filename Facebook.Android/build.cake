@@ -103,7 +103,8 @@ Task ("nuget")
 		var buildSettings = new DotNetPackSettings
 		{
             Configuration = "Release",
-            OutputDirectory = MakeAbsolute((DirectoryPath)"./output/").FullPath
+            OutputDirectory = MakeAbsolute((DirectoryPath)"./output/").FullPath,
+            ArgumentCustomization = args => args.Append($"/p:PackageVersion={art.NugetVersion}")
 		};
 
 		DotNetPack(csproj, buildSettings);	
