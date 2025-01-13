@@ -1,0 +1,9 @@
+﻿{
+  "solution": {
+    "path": "Xamarin.Facebook.sln",
+    "projects": [
+      "source\\CoreKit\\CoreKit.csproj",
+      "source\\ShareKit\\ShareKit.csproj"
+    ]
+  }
+}
