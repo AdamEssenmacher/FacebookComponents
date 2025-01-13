@@ -138,6 +138,9 @@ void BuildXcodeFatLibrary (FilePath xcodeProject, string target, Platform [] pla
 	var buildArch = new Action<string, string, FilePath>((sdk, arch, dest) => {
 		if (FileExists(dest))
 			return;
+			
+        var buildSettings = new Dictionary<string, string> ();
+        buildSettings["BUILD_LIBRARY_FOR_DISTRIBUTION"] = "YES";
 
 		XCodeBuild(new XCodeBuildSettings
 		{
@@ -146,7 +149,8 @@ void BuildXcodeFatLibrary (FilePath xcodeProject, string target, Platform [] pla
 			Sdk = sdk,
 			Arch = arch,
 			Configuration = "Release",
-			Verbose = true
+			Verbose = true,
+			BuildSettings = buildSettings
 		});
 
 		var outputPath = workingDirectory.Combine("build").Combine($"Release-{sdk}").Combine (target).CombineWithFilePath($"lib{libraryTitle}.a");
