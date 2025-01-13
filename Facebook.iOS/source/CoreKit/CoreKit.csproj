@@ -17,14 +17,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Xamarin.Facebook.CoreKit.iOS</PackageId>
+    <PackageId>AdamE.Facebook.CoreKit.iOS</PackageId>
     <Title>Facebook CoreKit SDK for Xamarin iOS</Title>
     <Summary>C# binding for Facebook CoreKit's official SDK</Summary>
     <Description>C# binding for Facebook CoreKit's official SDK</Description>
     <Authors>Microsoft</Authors>
-    <Owners>Microsoft</Owners>
-    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <PackageProjectUrl>https://go.microsoft.com/fwlink/?linkid=2007135</PackageProjectUrl>
+    <Owners>Adam Essenmacher</Owners>
+    <Copyright>© Microsoft Corporation. All rights reserved. © 2025, Adam Essenmacher.</Copyright>
+    <PackageProjectUrl>https://github.com/AdamEssenmacher/FacebookComponents</PackageProjectUrl>
     <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=2007136</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageVersion>12.2.0.1</PackageVersion>
@@ -57,8 +57,8 @@
   <!-- End of workaround -->
 
   <ItemGroup>
-    <None Include="CoreKit.targets" Pack="True" PackagePath="build/Xamarin.Facebook.CoreKit.iOS.targets" />
-    <None Include="CoreKit.targets" Pack="True" PackagePath="buildTransitive/Xamarin.Facebook.CoreKit.iOS.targets" />
+    <None Include="CoreKit.targets" Pack="True" PackagePath="build/AdamE.Facebook.CoreKit.iOS.targets" />
+    <None Include="CoreKit.targets" Pack="True" PackagePath="buildTransitive/AdamE.Facebook.CoreKit.iOS.targets" />
     <None Include="..\..\External-Dependency-Info.txt" Pack="True" PackagePath="THIRD-PARTY-NOTICES.txt" />
   </ItemGroup>
 
