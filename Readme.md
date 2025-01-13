@@ -10,6 +10,25 @@ dotnet tool uninstall -g cake.tool
 dotnet tool install -g cake.tool --version 4.2.0
 ```
 
+Building for iOS requires Cake 0.38.5
+
+```sh
+dotnet tool uninstall -g cake.tool
+dotnet tool install -g cake.tool --version 0.38.5
+```
+
+Sample Sharpie command that mostly works:
+
+sharpie bind \
+-sdk iphoneos \
+FBSDKCoreKit.xcframework/ios-arm64/FBSDKCoreKit.framework/Headers/FBSDKCoreKit.h \
+-scope FBSDKCoreKit.xcframework/ios-arm64/FBSDKCoreKit.framework/Headers/*.h \
+-c \
+-F FBAEMKit.xcframework/ios-arm64 \
+-F FBSDKCoreKit_Basics.xcframework/ios-arm64 \
+-F FBSDKCoreKit.xcframework/ios-arm64
+
+
 # Xamarin Components for Facebook
 
 Xamarin creates and maintains Xamarin.Android and Xamarin.iOS bindings for Facebook SDKs.
