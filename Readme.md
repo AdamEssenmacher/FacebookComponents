@@ -3,6 +3,13 @@ I have only updated the Core and Share SDKs (for both Android and iOS), and only
 
 Feel free to open PRs to expand the functionality or fix any issues.
 
+Building for Android requires Cake 4.2.0:
+
+```sh
+dotnet tool uninstall -g cake.tool
+dotnet tool install -g cake.tool --version 4.2.0
+```
+
 # Xamarin Components for Facebook
 
 Xamarin creates and maintains Xamarin.Android and Xamarin.iOS bindings for Facebook SDKs.
