@@ -13,7 +13,7 @@ var BUILD_TIMESTAMP = DateTime.UtcNow.ToString();
 
 var IS_LOCAL_BUILD = true;
 
-var SOLUTION_PATH = "./Xamarin.Facebook.sln";
+var SOLUTION_PATH = "./AdamE.Facebook.Filter.slnf";
 var EXTERNALS_PATH = new DirectoryPath ("./externals");
 
 // Artifacts that need to be built from pods or be copied from pods
