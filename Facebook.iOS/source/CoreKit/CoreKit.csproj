@@ -10,8 +10,8 @@
     <SupportedOSPlatformVersion>12.0</SupportedOSPlatformVersion>
     <RootNamespace>Facebook.CoreKit</RootNamespace>
     <AssemblyName>Facebook.CoreKit</AssemblyName>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>12.2.0.1</FileVersion>
+    <AssemblyVersion>17.4.0.0</AssemblyVersion>
+    <FileVersion>17.4.0.0</FileVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ProcessEnums>true</ProcessEnums>
   </PropertyGroup>
@@ -27,7 +27,7 @@
     <PackageProjectUrl>https://github.com/AdamEssenmacher/FacebookComponents</PackageProjectUrl>
     <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=2007136</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageVersion>12.2.0.1</PackageVersion>
+    <PackageVersion>17.4.0.0</PackageVersion>
   </PropertyGroup>
   
   <ItemGroup>

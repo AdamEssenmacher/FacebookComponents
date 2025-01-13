@@ -5,355 +5,315 @@ using Foundation;
 using ObjCRuntime;
 using CoreGraphics;
 using Photos;
+using Facebook.CoreKit;
 
 #if !NET
 using NativeHandle = System.IntPtr;
 #endif
 
 namespace Facebook.ShareKit {
-	// @interface FBSDKAppGroupContent : NSObject <NSCopying, NSObject, NSSecureCoding>
-	[BaseType (typeof (NSObject), Name = "FBSDKAppGroupContent")]
-	interface AppGroupContent : INSCopying, INSSecureCoding {
-
-		// @property (copy, nonatomic) NSString * groupDescription;
-		[Export ("groupDescription", ArgumentSemantic.Copy)]
-		string GroupDescription { get; set; }
-
-		// @property (copy, nonatomic) NSString * name;
-		[Export ("name", ArgumentSemantic.Copy)]
-		string Name { get; set; }
-
-		// @property (assign, nonatomic) FBSDKAppGroupPrivacy privacy;
-		[Export ("privacy", ArgumentSemantic.Assign)]
-		AppGroupPrivacy Privacy { get; set; }
-
-		// -(BOOL)isEqualToAppGroupContent:(FBSDKAppGroupContent *)content;
-		[Export ("isEqualToAppGroupContent:")]
-		bool Equals (AppGroupContent content);
-	}
-
-	// @interface FBSDKAppInviteContent : NSObject <NSCopying, NSObject, FBSDKSharingValidation, NSSecureCoding>
+	// @interface FBSDKAppInviteContent : NSObject
+	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKAppInviteContent")]
-	interface AppInviteContent : INSCopying, SharingValidation, INSSecureCoding {
-
-		// @property (copy, nonatomic) NSURL * appLinkURL;
-		[NullAllowed]
+	interface AppInviteContent {
+		// @property (copy, nonatomic) NSURL * _Nonnull appLinkURL;
 		[Export ("appLinkURL", ArgumentSemantic.Copy)]
 		NSUrl AppLinkUrl { get; set; }
 
-		// @property (nonatomic, copy) NSURL *appInvitePreviewImageURL;
+		// @property (copy, nonatomic) NSURL * _Nullable appInvitePreviewImageURL;
 		[NullAllowed]
 		[Export ("appInvitePreviewImageURL", ArgumentSemantic.Copy)]
 		NSUrl PreviewImageUrl { get; set; }
 
-		// @property (nonatomic, copy) NSString *promotionCode;
+		// @property (copy, nonatomic) NSString * _Nullable promotionCode;
 		[NullAllowed]
 		[Export ("promotionCode")]
 		string PromotionCode { get; set; }
 
-		// @property (nonatomic, copy) NSString *promotionText;
+		// @property (copy, nonatomic) NSString * _Nullable promotionText;
 		[NullAllowed]
 		[Export ("promotionText")]
 		string PromotionText { get; set; }
 
-		// @property FBSDKAppInviteDestination destination;
+		// @property (nonatomic) enum FBSDKAppInviteDestination destination;
 		[Export ("destination", ArgumentSemantic.Assign)]
 		AppInviteDestination Destination { get; set; }
 
-		// -(BOOL)isEqualToAppInviteContent:(FBSDKAppInviteContent *)content;
-		[Export ("isEqualToAppInviteContent:")]
-		bool Equals (AppInviteContent content);
+		// -(instancetype _Nonnull)initWithAppLinkURL:(NSURL * _Nonnull)appLinkURL __attribute__((objc_designated_initializer));
+		[DesignatedInitializer]
+		[Export ("initWithAppLinkURL:")]
+		NativeHandle Constructor (NSUrl appLinkUrl);
 	}
 
 	// @interface FBSDKCameraEffectArguments : NSObject <NSCopying, NSObject, NSSecureCoding>
 	[BaseType (typeof (NSObject), Name = "FBSDKCameraEffectArguments")]
 	interface CameraEffectArguments : INSCopying, INSSecureCoding {
-		// -(void)setString:(NSString *)string forKey:(NSString *)key;
+		// -(void)setString:(NSString * _Nullable)string forKey:(NSString * _Nonnull)key;
 		[Export ("setString:forKey:")]
 		void SetString ([NullAllowed] string aString, string key);
 
-		// -(NSString *)stringForKey:(NSString *)key;
+		// -(NSString * _Nullable)stringForKey:(NSString * _Nonnull)key __attribute__((warn_unused_result("")));
 		[return: NullAllowed]
 		[Export ("stringForKey:")]
 		string GetString (string key);
 
-		// -(void)setArray:(NSArray<NSString *> *)array forKey:(NSString *)key;
+		// -(void)setArray:(NSArray<NSString *> * _Nullable)array forKey:(NSString * _Nonnull)key;
 		[Export ("setArray:forKey:")]
 		void SetArray ([NullAllowed] string [] array, string key);
 
-		// -(NSArray *)arrayForKey:(NSString *)key;
+		// -(NSArray<NSString *> * _Nullable)arrayForKey:(NSString * _Nonnull)key __attribute__((warn_unused_result("")));
 		[return: NullAllowed]
 		[Export ("arrayForKey:")]
 		string [] GetArray (string key);
 	}
 
-	// @interface FBSDKCameraEffectTextures : NSObject <NSCopying, NSObject, NSSecureCoding>
+	// @interface FBSDKCameraEffectTextures : NSObject
 	[BaseType (typeof (NSObject), Name = "FBSDKCameraEffectTextures")]
-	interface CameraEffectTextures : INSCopying, INSSecureCoding {
-		// -(void)setImage:(UIImage *)image forKey:(NSString *)key;
+	interface CameraEffectTextures {
+		// -(void)setImage:(UIImage * _Nullable)image forKey:(NSString * _Nonnull)key;
 		[Export ("setImage:forKey:")]
 		void SetImage ([NullAllowed] UIImage image, string key);
 
-		// -(UIImage *)imageForKey:(NSString *)key;
+		// -(UIImage * _Nullable)imageForKey:(NSString * _Nonnull)key __attribute__((warn_unused_result("")));
 		[return: NullAllowed]
 		[Export ("imageForKey:")]
 		UIImage GetImage (string key);
 	}
 
-	// @interface FBSDKGameRequestContent : NSObject <NSCopying, NSObject, FBSDKSharingValidation, NSSecureCoding>
-	[BaseType (typeof (NSObject), Name = "FBSDKGameRequestContent")]
-	interface GameRequestContent : INSCopying, SharingValidation, INSSecureCoding {
-
-		// @property (assign, nonatomic) FBSDKGameRequestActionType actionType;
-		[Export ("actionType", ArgumentSemantic.Assign)]
-		GameRequestActionType ActionType { get; set; }
-
-		// -(BOOL)isEqualToGameRequestContent:(FBSDKGameRequestContent *)content;
-		[Export ("isEqualToGameRequestContent:")]
-		bool Equals (GameRequestContent content);
-
-		// @property (copy, nonatomic) NSString * data;
-		[NullAllowed]
-		[Export ("data", ArgumentSemantic.Copy)]
-		string Data { get; set; }
-
-		// @property (assign, nonatomic) FBSDKGameRequestFilter filters;
-		[Export ("filters", ArgumentSemantic.Assign)]
-		GameRequestFilter Filters { get; set; }
-
-		// @property (copy, nonatomic) NSString * message;
-		[Export ("message", ArgumentSemantic.Copy)]
-		string Message { get; set; }
-
-		// @property (copy, nonatomic) NSString * objectID;
-		[Export ("objectID", ArgumentSemantic.Copy)]
-		string ObjectId { get; set; }
-
-		// @property (nonatomic, copy) NSArray *recipients;
-		[Export ("recipients", ArgumentSemantic.Copy)]
-		string [] Recipients { get; set; }
-
-		// @property (copy, nonatomic) NSArray * recipientSuggestions;
-		[Export ("recipientSuggestions", ArgumentSemantic.Copy)]
-		string [] RecipientSuggestions { get; set; }
-
-		// @property (copy, nonatomic) NSString * title;
-		[Export ("title", ArgumentSemantic.Copy)]
-		string Title { get; set; }
-
-		// @property (copy, nonatomic) NSString * _Nonnull cta;
-		[Export ("cta", ArgumentSemantic.Copy)]
-		string Cta { get; set; }
-	}
-
-	// @interface FBSDKGameRequestDialog : NSObject
-	[BaseType (typeof (NSObject), Name = "FBSDKGameRequestDialog")]
-	interface GameRequestDialog {
-		// +(instancetype _Nonnull)dialogWithContent:(FBSDKGameRequestContent * _Nonnull)content delegate:(id<FBSDKGameRequestDialogDelegate> _Nullable)delegate __attribute__((swift_name("init(content:delegate:)")));
-		[Static]
-		[Export ("dialogWithContent:delegate:")]
-		GameRequestDialog Create (GameRequestContent content, [NullAllowed] IGameRequestDialogDelegate aDelegate);
-
-		// +(instancetype)showWithContent:(FBSDKGameRequestContent *)content delegate:(id<FBSDKGameRequestDialogDelegate>)delegate;
-		[Static]
-		[Export ("showWithContent:delegate:")]
-		GameRequestDialog Show ([NullAllowed] GameRequestContent content, [NullAllowed] IGameRequestDialogDelegate aDelegate);
-
-		// @property (nonatomic, weak) id<FBSDKGameRequestDialogDelegate> delegate;
-		[NullAllowed]
-		[Export ("delegate", ArgumentSemantic.Weak)]
-		IGameRequestDialogDelegate Delegate { get; set; }
-
-		// @property (copy, nonatomic) FBSDKGameRequestContent * content;
-		[NullAllowed]
-		[Export ("content", ArgumentSemantic.Copy)]
-		GameRequestContent Content { get; set; }
-
-		// @property (getter = isFrictionlessRequestsEnabled, assign, nonatomic) BOOL frictionlessRequestsEnabled;
-		[Export ("frictionlessRequestsEnabled")]
-		bool FrictionlessRequestsEnabled { [Bind ("isFrictionlessRequestsEnabled")] get; set; }
-
-		// -(BOOL)canShow;
-		[Export ("canShow")]
-		bool CanShow { get; }
-
-		// -(BOOL)show;
-		[Export ("show")]
-		bool Show ();
-
-		// -(BOOL)validateWithError:(NSError **)errorRef;
-		[Export ("validateWithError:")]
-		bool Validate (out NSError error);
-	}
-
-	interface IGameRequestDialogDelegate { }
-
-	// @protocol FBSDKGameRequestDialogDelegate <NSObject>
-#if NET
-    [Model]
-#else
-    [Model (AutoGeneratedName = true)]
-#endif
-	[Protocol]
-	[BaseType (typeof (NSObject), Name = "FBSDKGameRequestDialogDelegate")]
-	interface GameRequestDialogDelegate {
-
-		// @required -(void)gameRequestDialog:(FBSDKGameRequestDialog *)gameRequestDialog didCompleteWithResults:(NSDictionary *)results;
-		[Abstract]
-		[Export ("gameRequestDialog:didCompleteWithResults:")]
-		void DidComplete (GameRequestDialog gameRequestDialog, NSDictionary results);
-
-		// @required -(void)gameRequestDialog:(FBSDKGameRequestDialog *)gameRequestDialog didFailWithError:(NSError *)error;
-		[Abstract]
-		[Export ("gameRequestDialog:didFailWithError:")]
-		void DidFail (GameRequestDialog gameRequestDialog, NSError error);
-
-		// @required -(void)gameRequestDialogDidCancel:(FBSDKGameRequestDialog *)gameRequestDialog;
-		[Abstract]
-		[Export ("gameRequestDialogDidCancel:")]
-		void DidCancel (GameRequestDialog gameRequestDialog);
-	}
-
-	// @interface FBSDKGameRequestURLProvider : NSObject
-	[BaseType (typeof(NSObject), Name = "FBSDKGameRequestURLProvider")]
-	interface GameRequestUrlProvider
-	{
-		// +(NSURL * _Nullable)createDeepLinkURLWithQueryDictionary:(NSDictionary<NSString *,id> * _Nonnull __strong)queryDictionary;
-		[Static]
-		[Export ("createDeepLinkURLWithQueryDictionary:")]
-		[return: NullAllowed]
-		NSUrl CreateDeepLinkUrl (NSDictionary<NSString, NSObject> queryDictionary);
-
-		// +(NSString * _Nullable)filtersNameForFilters:(FBSDKGameRequestFilter)filters;
-		[Static]
-		[Export ("filtersNameForFilters:")]
-		[return: NullAllowed]
-		string GetFiltersName (GameRequestFilter filters);
-
-		// +(NSString * _Nullable)actionTypeNameForActionType:(FBSDKGameRequestActionType)actionType;
-		[Static]
-		[Export ("actionTypeNameForActionType:")]
-		[return: NullAllowed]
-		string GetActionTypeName (GameRequestActionType actionType);
-	}
-
-	// @interface FBSDKHashtag : NSObject <NSCopying, NSObject, NSSecureCoding>
+	// @interface FBSDKHashtag : NSObject
 	[BaseType (typeof (NSObject), Name = "FBSDKHashtag")]
-	interface Hashtag : INSCopying, INSSecureCoding {
-		// + (instancetype)hashtagWithString:(NSString *)hashtagString;
-		[Static]
-		[Export ("hashtagWithString:")]
-		Hashtag Create (string hashtag);
+	interface Hashtag {
+		// -(instancetype _Nonnull)initWithString:(NSString * _Nonnull)string __attribute__((objc_designated_initializer));
+		[DesignatedInitializer]
+		[Export ("initWithString:")]
+		NativeHandle Constructor (string aString);
 
-		// @property (nonatomic, readwrite, copy) NSString *stringRepresentation;
+		// @property (copy, nonatomic) NSString * _Nonnull stringRepresentation;
 		[Export ("stringRepresentation")]
 		string StringRepresentation { get; set; }
 
-		// @property (nonatomic, readonly, assign, getter=isValid) BOOL valid;
-		[Export ("valid")]
-		bool Valid { [Bind ("isValid")] get; set; }
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull description;
+		[Export ("description")]
+		string Description { get; }
 
-		// - (BOOL)isEqualToHashtag:(FBSDKHashtag *)hashtag;
-		[Export ("isEqualToHashtag:")]
-		bool Equals (Hashtag hashtag);
+		// @property (readonly, nonatomic) BOOL isValid;
+		[Export ("isValid")]
+		bool Valid { get; }
+
+		// -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
+		[Export ("isEqual:")]
+		bool Equals ([NullAllowed] NSObject @object);
 	}
 
 	// @interface FBSDKMessageDialog : NSObject <FBSDKSharingDialog>
-	[Obsolete ("Sharing to Messenger via the SDK is unsupported. https://developers.facebook.com/docs/messenger-platform/changelog/#20190610. Sharing should be performed by the native share sheet.")]
 	[DisableDefaultCtor]
-	[BaseType (typeof (NSObject), Name = "FBSDKMessageDialog")]
+	[BaseType (typeof(NSObject), Name = "FBSDKMessageDialog")]
 	interface MessageDialog : SharingDialog {
-		// -(instancetype _Nonnull)initWithContent:(id<FBSDKSharingContent>  _Nullable __strong)content delegate:(id<FBSDKSharingDelegate>  _Nullable __strong)delegate __attribute__((ns_consumes_self)) __attribute__((ns_returns_retained));
+		// -(instancetype _Nonnull)initWithContent:(id<FBSDKSharingContent> _Nullable)content delegate:(id<FBSDKSharingDelegate> _Nullable)delegate;
 		[Export ("initWithContent:delegate:")]
-		NativeHandle Constructor ([NullAllowed] ISharingContent content, [NullAllowed] ISharingDelegate @delegate);
-		
-		// +(instancetype _Nonnull)dialogWithContent:(id<FBSDKSharingContent> _Nonnull)content delegate:(id<FBSDKSharingDelegate> _Nullable)delegate __attribute__((swift_name("init(content:delegate:)")));
+		NativeHandle Constructor ([NullAllowed] ISharingContent content, [NullAllowed] SharingDelegate aDelegate);
+
+		// +(FBSDKMessageDialog * _Nonnull)dialogWithContent:(id<FBSDKSharingContent> _Nullable)content delegate:(id<FBSDKSharingDelegate> _Nullable)delegate __attribute__((warn_unused_result("")));
 		[Static]
 		[Export ("dialogWithContent:delegate:")]
-		MessageDialog Create (ISharingContent content, [NullAllowed] ISharingDelegate aDelegate);
+		MessageDialog DialogWithContent ([NullAllowed] ISharingContent content, [NullAllowed] SharingDelegate aDelegate);
 
-		// +(instancetype)showWithContent:(id<FBSDKSharingContent>)content delegate:(id<FBSDKSharingDelegate>)delegate;
+		// +(FBSDKMessageDialog * _Nonnull)showWithContent:(id<FBSDKSharingContent> _Nullable)content delegate:(id<FBSDKSharingDelegate> _Nullable)delegate __attribute__((warn_unused_result("")));
 		[Static]
 		[Export ("showWithContent:delegate:")]
-		MessageDialog Show ([NullAllowed] ISharingContent content, [NullAllowed] ISharingDelegate aDelegate);
+		MessageDialog ShowWithContent ([NullAllowed] ISharingContent content, [NullAllowed] SharingDelegate aDelegate);
+	}
+	
+	// @protocol FBSDKButtonImpressionLogging <NSObject>
+	[Protocol]
+	[BaseType (typeof(NSObject), Name = "FBSDKButtonImpressionLogging")]
+	interface ButtonImpressionLogging
+	{
+		// @required @property (readonly, copy, nonatomic) NSDictionary<FBSDKAppEventParameterName,id> * _Nullable analyticsParameters;
+		[Abstract]
+		[NullAllowed, Export ("analyticsParameters", ArgumentSemantic.Copy)]
+		NSDictionary<NSString, NSObject> AnalyticsParameters { get; }
+
+		// @required @property (readonly, copy, nonatomic) FBSDKAppEventName _Nonnull impressionTrackingEventName;
+		[Abstract]
+		[Export ("impressionTrackingEventName")]
+		string ImpressionTrackingEventName { get; }
+
+		// @required @property (readonly, copy, nonatomic) NSString * _Nonnull impressionTrackingIdentifier;
+		[Abstract]
+		[Export ("impressionTrackingIdentifier")]
+		string ImpressionTrackingIdentifier { get; }
 	}
 
-	// @interface FBSDKSendButton : FBSDKButton <FBSDKSharingButton>
-	[Obsolete ("Sharing to Messenger via the SDK is unsupported. https://developers.facebook.com/docs/messenger-platform/changelog/#20190610. Sharing should be performed by the native share sheet.")]
-	[BaseType (typeof (CoreKit.Button), Name = "FBSDKSendButton")]
-	interface SendButton : SharingButton {
-
-		[Export ("initWithFrame:")]
-		NativeHandle Constructor (CGRect frame);
+	// @interface FBSDKSendButton : FBSDKButton <FBSDKButtonImpressionLogging, FBSDKSharingButton>
+	[BaseType (typeof(Button), Name = "FBSDKSendButton")]
+	interface SendButton : SharingButton, ButtonImpressionLogging
+	{
+		// @property (nonatomic, strong) FBSDKMessageDialog * _Nullable dialog;
+		[NullAllowed, Export ("dialog", ArgumentSemantic.Strong)]
+		MessageDialog Dialog { get; set; }
+	
+		// @property (readonly, copy, nonatomic) NSDictionary<FBSDKAppEventParameterName,id> * _Nullable analyticsParameters;
+		[NullAllowed, Export ("analyticsParameters", ArgumentSemantic.Copy)]
+		NSDictionary<NSString, NSObject> AnalyticsParameters { get; }
+	
+		// @property (readonly, nonatomic) FBSDKAppEventName _Nonnull impressionTrackingEventName;
+		[Export ("impressionTrackingEventName")]
+		string ImpressionTrackingEventName { get; }
+	
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull impressionTrackingIdentifier;
+		[Export ("impressionTrackingIdentifier")]
+		string ImpressionTrackingIdentifier { get; }
+	
+		// @property (readonly, getter = isImplicitlyDisabled, nonatomic) BOOL implicitlyDisabled;
+		[Export ("implicitlyDisabled")]
+		bool ImplicitlyDisabled { [Bind ("isImplicitlyDisabled")] get; }
+	
+		// -(void)configureButton;
+		[Export ("configureButton")]
+		void ConfigureButton ();
 	}
 
 	// @interface FBSDKShareButton : FBSDKButton <FBSDKSharingButton>
-	[BaseType (typeof (CoreKit.Button), Name = "FBSDKShareButton")]
+	[BaseType (typeof(Button), Name = "FBSDKShareButton")]
 	interface ShareButton : SharingButton {
-
-		[Export ("initWithFrame:")]
-		NativeHandle Constructor (CGRect frame);
+		// @property (readonly, copy, nonatomic) NSDictionary<FBSDKAppEventParameterName,id> * _Nullable analyticsParameters;
+		[NullAllowed, Export ("analyticsParameters", ArgumentSemantic.Copy)]
+		NSDictionary<NSString, NSObject> AnalyticsParameters { get; }
+	
+		// @property (readonly, nonatomic) FBSDKAppEventName _Nonnull impressionTrackingEventName;
+		[Export ("impressionTrackingEventName")]
+		string ImpressionTrackingEventName { get; }
+	
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull impressionTrackingIdentifier;
+		[Export ("impressionTrackingIdentifier")]
+		string ImpressionTrackingIdentifier { get; }
+	
+		// @property (readonly, getter = isImplicitlyDisabled, nonatomic) BOOL implicitlyDisabled;
+		[Export ("implicitlyDisabled")]
+		bool ImplicitlyDisabled { [Bind ("isImplicitlyDisabled")] get; }
+	
+		// -(void)configureButton;
+		[Export ("configureButton")]
+		void ConfigureButton ();
+	
+		// -(instancetype _Nullable)initWithCoder:(NSCoder * _Nonnull)coder __attribute__((objc_designated_initializer));
+		// [Export ("initWithCoder:")]
+		// [DesignatedInitializer]
+		// NativeHandle Constructor (NSCoder coder);
 	}
 
-	// @interface FBSDKShareCameraEffectContent : NSObject <FBSDKSharingContent>
-	[BaseType (typeof (NSObject), Name = "FBSDKShareCameraEffectContent")]
-	interface ShareCameraEffectContent : SharingContent, SharingScheme {
-		// @property (copy, nonatomic) NSString * effectID;
+	// @interface FBSDKShareCameraEffectContent : NSObject
+	[BaseType (typeof(NSObject), Name = "FBSDKShareCameraEffectContent")]
+	interface ShareCameraEffectContent {
+		// @property (copy, nonatomic) NSString * _Nonnull effectID;
 		[Export ("effectID")]
 		string EffectId { get; set; }
 
-		// @property (copy, nonatomic) FBSDKCameraEffectArguments * effectArguments;
-		[Export ("effectArguments", ArgumentSemantic.Copy)]
+		// @property (nonatomic, strong) FBSDKCameraEffectArguments * _Nonnull effectArguments;
+		[Export ("effectArguments", ArgumentSemantic.Strong)]
 		CameraEffectArguments EffectArguments { get; set; }
 
-		// @property (copy, nonatomic) FBSDKCameraEffectTextures * effectTextures;
-		[Export ("effectTextures", ArgumentSemantic.Copy)]
+		// @property (nonatomic, strong) FBSDKCameraEffectTextures * _Nonnull effectTextures;
+		[Export ("effectTextures", ArgumentSemantic.Strong)]
 		CameraEffectTextures EffectTextures { get; set; }
 
-		// -(BOOL)isEqualToShareCameraEffectContent:(FBSDKShareCameraEffectContent *)content;
-		[Export ("isEqualToShareCameraEffectContent:")]
-		bool Equals (ShareCameraEffectContent content);
+		// @property (copy, nonatomic) NSURL * _Nullable contentURL;
+		[NullAllowed, Export ("contentURL", ArgumentSemantic.Copy)]
+		NSUrl ContentUrl { get; set; }
+
+		// @property (nonatomic, strong) FBSDKHashtag * _Nullable hashtag;
+		[NullAllowed, Export ("hashtag", ArgumentSemantic.Strong)]
+		Hashtag Hashtag { get; set; }
+
+		// @property (copy, nonatomic) NSArray<NSString *> * _Nonnull peopleIDs;
+		[Export ("peopleIDs", ArgumentSemantic.Copy)]
+		string[] PeopleIds { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable placeID;
+		[NullAllowed, Export ("placeID")]
+		string PlaceId { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable ref;
+		[NullAllowed, Export ("ref")]
+		string Ref { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable pageID;
+		[NullAllowed, Export ("pageID")]
+		string PageId { get; set; }
+
+		// @property (readonly, copy, nonatomic) NSString * _Nullable shareUUID;
+		[NullAllowed, Export ("shareUUID")]
+		string ShareUuid { get; }
 	}
 
 	// @interface FBSDKShareDialog : NSObject <FBSDKSharingDialog>
 	[DisableDefaultCtor]
-	[BaseType (typeof (NSObject), Name = "FBSDKShareDialog")]
+	[BaseType (typeof(NSObject), Name = "FBSDKShareDialog")]
 	interface ShareDialog : SharingDialog {
-		// -(instancetype _Nonnull)initWithViewController:(UIViewController * _Nullable __strong)viewController content:(id<FBSDKSharingContent>  _Nullable __strong)content delegate:(id<FBSDKSharingDelegate>  _Nullable __strong)delegate __attribute__((ns_consumes_self)) __attribute__((ns_returns_retained));
-		[Export ("initWithViewController:content:delegate:")]
-		NativeHandle Constructor ([NullAllowed] UIViewController viewController, [NullAllowed] ISharingContent content, [NullAllowed] ISharingDelegate @delegate);
-		
-		// +(instancetype _Nonnull)dialogWithViewController:(UIViewController * _Nullable)viewController withContent:(id<FBSDKSharingContent> _Nonnull)content delegate:(id<FBSDKSharingDelegate> _Nullable)delegate __attribute__((swift_name("init(fromViewController:content:delegate:)")));
-		[Static]
-		[Export ("dialogWithViewController:withContent:delegate:")]
-		ShareDialog Create ([NullAllowed] UIViewController viewController, ISharingContent content, [NullAllowed] ISharingDelegate aDelegate);
-
-		// +(instancetype)showFromViewController:(UIViewController *)viewController withContent:(id<FBSDKSharingContent>)content delegate:(id<FBSDKSharingDelegate>)delegate;
-		[Static]
-		[Export ("showFromViewController:withContent:delegate:")]
-		ShareDialog Show (UIViewController viewController, ISharingContent content, [NullAllowed] ISharingDelegate aDelegate);
-
-		// @property (nonatomic, weak) UIViewController * fromViewController;
-		[NullAllowed]
-		[Export ("fromViewController", ArgumentSemantic.Weak)]
+		// @property (nonatomic, weak) UIViewController * _Nullable fromViewController;
+		[NullAllowed, Export ("fromViewController", ArgumentSemantic.Weak)]
 		UIViewController FromViewController { get; set; }
 
-		// @property (assign, nonatomic) FBSDKShareDialogMode mode;
+		// @property (nonatomic) enum FBSDKShareDialogMode mode;
 		[Export ("mode", ArgumentSemantic.Assign)]
 		ShareDialogMode Mode { get; set; }
+
+		// -(instancetype _Nonnull)initWithViewController:(UIViewController * _Nullable)viewController content:(id<FBSDKSharingContent> _Nullable)content delegate:(id<FBSDKSharingDelegate> _Nullable)delegate __attribute__((objc_designated_initializer));
+		[Export ("initWithViewController:content:delegate:")]
+		[DesignatedInitializer]
+		NativeHandle Constructor ([NullAllowed] UIViewController viewController, [NullAllowed] ISharingContent content, [NullAllowed] SharingDelegate @delegate);
+
+		// +(FBSDKShareDialog * _Nonnull)dialogWithViewController:(UIViewController * _Nullable)viewController withContent:(id<FBSDKSharingContent> _Nullable)content delegate:(id<FBSDKSharingDelegate> _Nullable)delegate __attribute__((warn_unused_result("")));
+		[Static]
+		[Export ("dialogWithViewController:withContent:delegate:")]
+		ShareDialog DialogWithViewController ([NullAllowed] UIViewController viewController, [NullAllowed] ISharingContent content, [NullAllowed] SharingDelegate aDelegate);
+
+		// +(FBSDKShareDialog * _Nonnull)showFromViewController:(UIViewController * _Nullable)viewController withContent:(id<FBSDKSharingContent> _Nullable)content delegate:(id<FBSDKSharingDelegate> _Nullable)delegate;
+		[Static]
+		[Export ("showFromViewController:withContent:delegate:")]
+		ShareDialog ShowFromViewController ([NullAllowed] UIViewController viewController, [NullAllowed] ISharingContent content, [NullAllowed] SharingDelegate aDelegate);
 	}
 
-	// @interface FBSDKShareLinkContent : NSObject <FBSDKSharingContent>
-	[BaseType (typeof (NSObject), Name = "FBSDKShareLinkContent")]
-	interface ShareLinkContent : SharingContent {
+	// @interface FBSDKShareLinkContent : NSObject
+	[BaseType (typeof(NSObject), Name = "FBSDKShareLinkContent")]
+	interface ShareLinkContent {
 		// @property (copy, nonatomic) NSString * _Nullable quote;
 		[NullAllowed]
 		[Export ("quote")]
 		string Quote { get; set; }
 
-		// -(BOOL)isEqualToShareLinkContent:(FBSDKShareLinkContent *)content;
-		[Export ("isEqualToShareLinkContent:")]
-		bool Equals (ShareLinkContent content);
+		// @property (copy, nonatomic) NSURL * _Nullable contentURL;
+		[NullAllowed]
+		[Export ("contentURL", ArgumentSemantic.Copy)]
+		NSUrl ContentUrl { get; set; }
+
+		// @property (nonatomic, strong) FBSDKHashtag * _Nullable hashtag;
+		[NullAllowed, Export ("hashtag", ArgumentSemantic.Strong)]
+		Hashtag Hashtag { get; set; }
+
+		// @property (copy, nonatomic) NSArray<NSString *> * _Nonnull peopleIDs;
+		[Export ("peopleIDs", ArgumentSemantic.Copy)]
+		string[] PeopleIds { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable placeID;
+		[NullAllowed]
+		[Export ("placeID")]
+		string PlaceId { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable ref;
+		[NullAllowed]
+		[Export ("ref")]
+		string Ref { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable pageID;
+		[NullAllowed, Export ("pageID")]
+		string PageId { get; set; }
+
+		// @property (readonly, copy, nonatomic) NSString * _Nullable shareUUID;
+		[NullAllowed]
+		[Export ("shareUUID")]
+		string ShareUuid { get; }
 	}
 
 	interface IShareMedia { }
@@ -362,207 +322,214 @@ namespace Facebook.ShareKit {
 	[Protocol (Name = "FBSDKShareMedia")]
 	interface ShareMedia { }
 
-	// @interface FBSDKShareMediaContent : NSObject <FBSDKSharingContent>
-	[BaseType (typeof (NSObject), Name = "FBSDKShareMediaContent")]
+	// @interface FBSDKShareMediaContent : NSObject
+	[BaseType (typeof(NSObject), Name = "FBSDKShareMediaContent")]
 	interface ShareMediaContent {
-		// @property (nonatomic, copy) NSArray *media;
+		// @property (copy, nonatomic) NSArray<id<FBSDKShareMedia>> * _Nonnull media;
 		[Export ("media", ArgumentSemantic.Copy)]
-		IShareMedia [] Media { get; set; }
+		IShareMedia[] Media { get; set; }
 
-		// - (BOOL)isEqualToShareMediaContent:(FBSDKShareMediaContent *)content;
-		[Export ("isEqualToShareMediaContent:")]
-		bool Equals (ShareMediaContent content);
+		// @property (copy, nonatomic) NSURL * _Nullable contentURL;
+		[NullAllowed]
+		[Export ("contentURL", ArgumentSemantic.Copy)]
+		NSUrl ContentUrl { get; set; }
+
+		// @property (nonatomic, strong) FBSDKHashtag * _Nullable hashtag;
+		[NullAllowed, Export ("hashtag", ArgumentSemantic.Strong)]
+		Hashtag Hashtag { get; set; }
+
+		// @property (copy, nonatomic) NSArray<NSString *> * _Nonnull peopleIDs;
+		[Export ("peopleIDs", ArgumentSemantic.Copy)]
+		string[] PeopleIds { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable placeID;
+		[NullAllowed]
+		[Export ("placeID")]
+		string PlaceId { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable ref;
+		[NullAllowed]
+		[Export ("ref")]
+		string Ref { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable pageID;
+		[NullAllowed, Export ("pageID")]
+		string PageId { get; set; }
+
+		// @property (readonly, copy, nonatomic) NSString * _Nullable shareUUID;
+		[NullAllowed]
+		[Export ("shareUUID")]
+		string ShareUuid { get; }
 	}
 
-	// @interface FBSDKSharePhoto : NSObject <NSSecureCoding, NSCopying, NSObject, FBSDKShareMedia, FBSDKSharingValidation>
+	// @interface FBSDKSharePhoto : NSObject <FBSDKShareMedia>
 	[DisableDefaultCtor]
-	[BaseType (typeof (NSObject), Name = "FBSDKSharePhoto")]
-	interface SharePhoto : INSSecureCoding, INSCopying, ShareMedia, SharingValidation {
-
-		// +(instancetype)photoWithImage:(UIImage *)image userGenerated:(BOOL)userGenerated;
-		[Static]
-		[Export ("photoWithImage:userGenerated:")]
-		SharePhoto From ([NullAllowed] UIImage image, bool userGenerated);
-
-		// +(instancetype)photoWithImageURL:(NSURL *)imageURL userGenerated:(BOOL)userGenerated;
-		[Static]
-		[Export ("photoWithImageURL:userGenerated:")]
-		SharePhoto From ([NullAllowed] NSUrl imageURL, bool userGenerated);
-
-		// +(instancetype)photoWithPhotoAsset:(PHAsset *)photoAsset userGenerated:(BOOL)userGenerated;
-		[Static]
-		[Export ("photoWithPhotoAsset:userGenerated:")]
-		SharePhoto From (PHAsset photoAsset, bool userGenerated);
-
-		// @property (nonatomic, strong) UIImage * image;
+	[BaseType (typeof(NSObject), Name = "FBSDKSharePhoto")]
+	interface SharePhoto : ShareMedia {
+		// @property (nonatomic, strong) UIImage * _Nullable image;
 		[NullAllowed]
 		[Export ("image", ArgumentSemantic.Strong)]
 		UIImage Image { get; set; }
 
-		// @property (copy, nonatomic) NSURL * imageURL;
+		// @property (copy, nonatomic) NSURL * _Nullable imageURL;
 		[NullAllowed]
 		[Export ("imageURL", ArgumentSemantic.Copy)]
 		NSUrl ImageUrl { get; set; }
 
-		// @property (copy, nonatomic) PHAsset * photoAsset;
-		[Export ("photoAsset", ArgumentSemantic.Copy)]
+		// @property (nonatomic, strong) PHAsset * _Nullable photoAsset;
+		[NullAllowed]
+		[Export ("photoAsset", ArgumentSemantic.Strong)]
 		PHAsset PhotoAsset { get; set; }
 
-		// @property (getter = isUserGenerated, assign, nonatomic) BOOL userGenerated;
-		[Export ("userGenerated")]
-		bool UserGenerated { [Bind ("isUserGenerated")] get; set; }
+		// @property (nonatomic) BOOL isUserGenerated;
+		[Export ("isUserGenerated")]
+		bool UserGenerated { get; set; }
 
-		// @property (nonatomic, copy) NSString *caption;
+		// @property (copy, nonatomic) NSString * _Nullable caption;
 		[NullAllowed]
-		[Export ("caption", ArgumentSemantic.Copy)]
+		[Export ("caption")]
 		string Caption { get; set; }
 
-		// -(BOOL)isEqualToSharePhoto:(FBSDKSharePhoto *)photo;
-		[Export ("isEqualToSharePhoto:")]
-		bool Equals (SharePhoto photo);
+		// -(instancetype _Nonnull)initWithImage:(UIImage * _Nonnull)image isUserGenerated:(BOOL)isUserGenerated;
+		[Export ("initWithImage:isUserGenerated:")]
+		NativeHandle Constructor (UIImage image, bool isUserGenerated);
+
+		// -(instancetype _Nonnull)initWithImageURL:(NSURL * _Nonnull)imageURL isUserGenerated:(BOOL)isUserGenerated;
+		[Export ("initWithImageURL:isUserGenerated:")]
+		NativeHandle Constructor (NSUrl imageURL, bool isUserGenerated);
+
+		// -(instancetype _Nonnull)initWithPhotoAsset:(PHAsset * _Nonnull)photoAsset isUserGenerated:(BOOL)isUserGenerated;
+		[Export ("initWithPhotoAsset:isUserGenerated:")]
+		NativeHandle Constructor (PHAsset photoAsset, bool isUserGenerated);
 	}
 
-	// @interface FBSDKSharePhotoContent : NSObject <FBSDKSharingContent>
-	[BaseType (typeof (NSObject), Name = "FBSDKSharePhotoContent")]
-	interface SharePhotoContent : SharingContent {
-
-		// @property (copy, nonatomic) NSArray * photos;
-		[NullAllowed]
+	// @interface FBSDKSharePhotoContent : NSObject
+	[BaseType (typeof(NSObject), Name = "FBSDKSharePhotoContent")]
+	interface SharePhotoContent : SharingContent, ISharingContent {
+		// @property (copy, nonatomic) NSArray<FBSDKSharePhoto *> * _Nonnull photos;
 		[Export ("photos", ArgumentSemantic.Copy)]
-		SharePhoto [] Photos { get; set; }
-
-		// -(BOOL)isEqualToSharePhotoContent:(FBSDKSharePhotoContent *)content;
-		[Export ("isEqualToSharePhotoContent:")]
-		bool Equals (SharePhotoContent content);
+		SharePhoto[] Photos { get; set; }
 	}
 
-	// @interface FBSDKShareVideo : NSObject <NSSecureCoding, NSCopying, NSObject, FBSDKShareMedia, FBSDKSharingValidation>
+	// @interface FBSDKShareVideo : NSObject <FBSDKShareMedia>
 	[DisableDefaultCtor]
-	[BaseType (typeof (NSObject), Name = "FBSDKShareVideo")]
-	interface ShareVideo : INSSecureCoding, INSCopying, ShareMedia, SharingValidation {
-		// +(instancetype)videoWithData:(NSData *)data;
-		[Static]
-		[Export ("videoWithData:")]
-		ShareVideo From (NSData data);
-
-		// +(instancetype)videoWithData:(NSData *)data previewPhoto:(FBSDKSharePhoto *)previewPhoto;
-		[Static]
-		[Export ("videoWithData:previewPhoto:")]
-		ShareVideo From (NSData data, SharePhoto previewPhoto);
-
-		// + (instancetype)videoWithVideoAsset:(PHAsset *)videoAsset;
-		[Static]
-		[Export ("videoWithVideoAsset:")]
-		ShareVideo From ([NullAllowed] PHAsset videoAsset);
-
-		// + (instancetype)videoWithVideoAsset:(PHAsset *)videoAsset previewPhoto:(FBSDKSharePhoto *)previewPhoto;
-		[Static]
-		[Export ("videoWithVideoAsset:previewPhoto:")]
-		ShareVideo From ([NullAllowed] PHAsset videoAsset, [NullAllowed] SharePhoto previewPhoto);
-
-		// +(instancetype)videoWithVideoURL:(NSURL *)videoURL;
-		[Static]
-		[Export ("videoWithVideoURL:")]
-		ShareVideo From ([NullAllowed] NSUrl videoURL);
-
-		// + (instancetype)videoWithVideoURL:(NSURL *)videoURL previewPhoto:(FBSDKSharePhoto *)previewPhoto;
-		[Static]
-		[Export ("videoWithVideoURL:previewPhoto:")]
-		ShareVideo From ([NullAllowed] NSUrl videoURL, [NullAllowed] SharePhoto previewPhoto);
-
-		// @property (nonatomic, strong) NSData * data;
-		[NullAllowed]
-		[Export ("data", ArgumentSemantic.Strong)]
+	[BaseType (typeof(NSObject), Name = "FBSDKShareVideo")]
+	interface ShareVideo : ShareMedia {
+		// @property (copy, nonatomic) NSData * _Nullable data;
+		[NullAllowed, Export ("data", ArgumentSemantic.Copy)]
 		NSData Data { get; set; }
 
-		// @property (nonatomic, copy) PHAsset *videoAsset;
-		[NullAllowed]
-		[Export ("videoAsset", ArgumentSemantic.Copy)]
+		// @property (nonatomic, strong) PHAsset * _Nullable videoAsset;
+		[NullAllowed, Export ("videoAsset", ArgumentSemantic.Strong)]
 		PHAsset VideoAsset { get; set; }
 
-		// @property (copy, nonatomic) NSURL * videoURL;
-		[NullAllowed]
-		[Export ("videoURL", ArgumentSemantic.Copy)]
+		// @property (copy, nonatomic) NSURL * _Nullable videoURL;
+		[NullAllowed, Export ("videoURL", ArgumentSemantic.Copy)]
 		NSUrl VideoUrl { get; set; }
 
-		// @property (nonatomic, copy) FBSDKSharePhoto *previewPhoto;
-		[NullAllowed]
-		[Export ("previewPhoto", ArgumentSemantic.Copy)]
+		// @property (nonatomic, strong) FBSDKSharePhoto * _Nullable previewPhoto;
+		[NullAllowed, Export ("previewPhoto", ArgumentSemantic.Strong)]
 		SharePhoto PreviewPhoto { get; set; }
 
-		// -(BOOL)isEqualToShareVideo:(FBSDKShareVideo *)video;
-		[Export ("isEqualToShareVideo:")]
-		bool Equals (ShareVideo video);
+		// -(instancetype _Nonnull)initWithData:(NSData * _Nonnull)data previewPhoto:(FBSDKSharePhoto * _Nullable)previewPhoto;
+		[Export ("initWithData:previewPhoto:")]
+		NativeHandle Constructor (NSData data, [NullAllowed] SharePhoto previewPhoto);
+
+		// -(instancetype _Nonnull)initWithVideoAsset:(PHAsset * _Nonnull)videoAsset previewPhoto:(FBSDKSharePhoto * _Nullable)previewPhoto;
+		[Export ("initWithVideoAsset:previewPhoto:")]
+		NativeHandle Constructor (PHAsset videoAsset, [NullAllowed] SharePhoto previewPhoto);
+
+		// -(instancetype _Nonnull)initWithVideoURL:(NSURL * _Nonnull)videoURL previewPhoto:(FBSDKSharePhoto * _Nullable)previewPhoto;
+		[Export ("initWithVideoURL:previewPhoto:")]
+		NativeHandle Constructor (NSUrl videoURL, [NullAllowed] SharePhoto previewPhoto);
 	}
 
-	// @interface FBSDKShareVideo (PHAsset)
-	[Category]
-	[BaseType (typeof (PHAsset))]
-	interface PHAsset_FBSDKShareVideo {
-		// @property (readonly, copy, nonatomic) NSURL * videoURL;
-		[Export ("videoURL")]
-		NSUrl GetVideoUrl ();
-	}
-
-	// @interface FBSDKShareVideoContent : NSObject <FBSDKSharingContent>
-	[BaseType (typeof (NSObject), Name = "FBSDKShareVideoContent")]
-	interface ShareVideoContent : SharingContent {
-		// @property (copy, nonatomic) FBSDKShareVideo * video;
-		[NullAllowed]
-		[Export ("video", ArgumentSemantic.Copy)]
+	// @interface FBSDKShareVideoContent : NSObject
+	[BaseType (typeof(NSObject), Name = "FBSDKShareVideoContent")]
+	interface ShareVideoContent {
+		// @property (nonatomic, strong) FBSDKShareVideo * _Nonnull video;
+		[Export ("video", ArgumentSemantic.Strong)]
 		ShareVideo Video { get; set; }
 
-		// -(BOOL)isEqualToShareVideoContent:(FBSDKShareVideoContent *)content;
-		[Export ("isEqualToShareVideoContent:")]
-		bool Equals (ShareVideoContent content);
+		// @property (copy, nonatomic) NSURL * _Nullable contentURL;
+		[NullAllowed]
+		[Export ("contentURL", ArgumentSemantic.Copy)]
+		NSUrl ContentUrl { get; set; }
+
+		// @property (nonatomic, strong) FBSDKHashtag * _Nullable hashtag;
+		[NullAllowed, Export ("hashtag", ArgumentSemantic.Strong)]
+		Hashtag Hashtag { get; set; }
+
+		// @property (copy, nonatomic) NSArray<NSString *> * _Nonnull peopleIDs;
+		[Export ("peopleIDs", ArgumentSemantic.Copy)]
+		string[] PeopleIds { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable placeID;
+		[NullAllowed]
+		[Export ("placeID")]
+		string PlaceId { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable ref;
+		[NullAllowed]
+		[Export ("ref")]
+		string Ref { get; set; }
+
+		// @property (copy, nonatomic) NSString * _Nullable pageID;
+		[NullAllowed]
+		[Export ("pageID")]
+		string PageId { get; set; }
+
+		// @property (readonly, copy, nonatomic) NSString * _Nullable shareUUID;
+		[NullAllowed]
+		[Export ("shareUUID")]
+		string ShareUuid { get; }
 	}
 
 	interface ISharing {
 
 	}
 
-	// @protocol FBSDKSharing <NSObject>
+	// @protocol FBSDKSharing
 	[Protocol (Name = "FBSDKSharing")]
 	interface Sharing {
+		[Wrap ("WeakDelegate"), Abstract]
+		[NullAllowed]
+		SharingDelegate Delegate { get; set; }
 
-		// @required @property (nonatomic, weak) id<FBSDKSharingDelegate> delegate;
-		[Export ("delegate")]
-		ISharingDelegate GetDelegate ();
+		// @required @property (nonatomic, weak) id<FBSDKSharingDelegate> _Nullable delegate;
+		[Abstract]
+		[NullAllowed]
+		[Export ("delegate", ArgumentSemantic.Weak)]
+		NSObject WeakDelegate { get; set; }
 
-		[Export ("setDelegate:")]
-		void SetDelegate ([NullAllowed] ISharingDelegate aDelegate);
+		// @required @property (nonatomic, strong) id<FBSDKSharingContent> _Nullable shareContent;
+		[Abstract]
+		[NullAllowed]
+		[Export ("shareContent", ArgumentSemantic.Strong)]
+		ISharingContent ShareContent { get; set; }
 
-		// @required @property (copy, nonatomic) id<FBSDKSharingContent> shareContent;
-		[Export ("shareContent")]
-		ISharingContent GetShareContent ();
-
-		[Export ("setShareContent:")]
-		void SetShareContent ([NullAllowed] ISharingContent shareContent);
-
-		// @required @property (assign, nonatomic) BOOL shouldFailOnDataError;
+		// @required @property (nonatomic) BOOL shouldFailOnDataError;
+		[Abstract]
 		[Export ("shouldFailOnDataError")]
-		bool GetShouldFailOnDataError ();
+		bool ShouldFailOnDataError { get; set; }
 
-		[Export ("setShouldFailOnDataError:")]
-		void SetShouldFailOnDataError (bool shouldFail);
-
-		// @required -(BOOL)validateWithError:(NSError **)errorRef;
+		// @required -(BOOL)validateWithError:(NSError * _Nullable * _Nullable)error;
+		[Abstract]
 		[Export ("validateWithError:")]
-		bool Validate (out NSError errorRef);
+		bool ValidateWithError ([NullAllowed] out NSError error);
 	}
 
 	interface ISharingDialog {
 
 	}
-
+	
 	// @protocol FBSDKSharingDialog <FBSDKSharing>
 	[Protocol (Name = "FBSDKSharingDialog")]
 	interface SharingDialog : Sharing {
-
-		// @required -(BOOL)canShow;
+		// @required @property (readonly, nonatomic) BOOL canShow;
 		[Abstract]
 		[Export ("canShow")]
-		bool CanShow ();
+		bool CanShow { get; }
 
 		// @required -(BOOL)show;
 		[Abstract]
@@ -584,20 +551,20 @@ namespace Facebook.ShareKit {
 	[BaseType (typeof (NSObject), Name = "FBSDKSharingDelegate")]
 	interface SharingDelegate {
 
-		// @required -(void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results;
+		// @required -(void)sharer:(id<FBSDKSharing> _Nonnull)sharer didCompleteWithResults:(NSDictionary<NSString *,id> * _Nonnull)results;
 		[Abstract]
 		[Export ("sharer:didCompleteWithResults:")]
-		void DidComplete (ISharing sharer, NSDictionary results);
+		void Sharer (ISharing sharer, NSDictionary<NSString, NSObject> results);
 
-		// @required -(void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error;
+		// @required -(void)sharer:(id<FBSDKSharing> _Nonnull)sharer didFailWithError:(NSError * _Nonnull)error;
 		[Abstract]
 		[Export ("sharer:didFailWithError:")]
-		void DidFail (ISharing sharer, NSError error);
+		void Sharer (ISharing sharer, NSError error);
 
-		// @required -(void)sharerDidCancel:(id<FBSDKSharing>)sharer;
+		// @required -(void)sharerDidCancel:(id<FBSDKSharing> _Nonnull)sharer;
 		[Abstract]
 		[Export ("sharerDidCancel:")]
-		void DidCancel (ISharing sharer);
+		void SharerDidCancel (ISharing sharer);
 	}
 
 	interface ISharingButton {
@@ -607,103 +574,73 @@ namespace Facebook.ShareKit {
 	// @protocol FBSDKSharingButton <NSObject>
 	[Protocol (Name = "FBSDKSharingButton")]
 	interface SharingButton {
-
-		// @required @property (copy, nonatomic) id<FBSDKSharingContent> shareContent;
+		// @required @property (nonatomic, strong) id<FBSDKSharingContent> _Nullable shareContent;
 		[Abstract]
-		[Export ("shareContent")]
-		ISharingContent GetShareContent ();
-
+		[NullAllowed, Export ("shareContent", ArgumentSemantic.Strong)]
+		ISharingContent ShareContent { get; set; }
+	}
+	
+	// @protocol FBSDKSharingValidatable
+	[Protocol (Name = "FBSDKSharingValidatable")]
+	interface SharingValidatable
+	{
+		// @required -(BOOL)validateWithOptions:(FBSDKShareBridgeOptions)options error:(NSError * _Nullable * _Nullable)error;
 		[Abstract]
-		[Export ("setShareContent:")]
-		void SetShareContent ([NullAllowed] ISharingContent shareContent);
+		[Export ("validateWithOptions:error:")]
+		bool Error (ShareBridgeOptions options, [NullAllowed] out NSError error);
 	}
 
 	interface ISharingContent {
 
 	}
 
-	// @protocol FBSDKSharingContent <NSCopying, NSObject, FBSDKSharingValidation, NSSecureCoding>
-	[Protocol (Name = "FBSDKSharingContent")]
-	interface SharingContent : INSCopying, SharingValidation, INSSecureCoding {
-
-		// @required @property (copy, nonatomic) NSURL * contentURL;
+	// @protocol FBSDKSharingContent <FBSDKSharingValidatable, NSObject>
+#if NET
+    [Model]
+#else
+	[Model (AutoGeneratedName = true)]
+#endif
+	[Protocol]
+	[BaseType (typeof (NSObject), Name = "FBSDKSharingContent")]
+	interface SharingContent : SharingValidatable {
+		// @required @property (copy, nonatomic) NSURL * _Nullable contentURL;
 		[Abstract]
-		[Export ("contentURL")]
-		NSUrl GetContentUrl ();
+		[NullAllowed, Export ("contentURL", ArgumentSemantic.Copy)]
+		NSUrl ContentUrl { get; set; }
 
+		// @required @property (nonatomic, strong) FBSDKHashtag * _Nullable hashtag;
 		[Abstract]
-		[Export ("setContentURL:")]
-		void SetContentUrl ([NullAllowed] NSUrl url);
-
-		// @property (nonatomic, copy) FBSDKHashtag *hashtag;
-		[Abstract]
-		[Export ("hashtag", ArgumentSemantic.Copy)]
+		[NullAllowed, Export ("hashtag", ArgumentSemantic.Strong)]
 		Hashtag Hashtag { get; set; }
 
-		// @required @property (copy, nonatomic) NSArray * peopleIDs;
+		// @required @property (copy, nonatomic) NSArray<NSString *> * _Nonnull peopleIDs;
 		[Abstract]
-		[Export ("peopleIDs")]
-		string [] GetPeopleIds ();
+		[Export ("peopleIDs", ArgumentSemantic.Copy)]
+		string[] PeopleIds { get; set; }
 
+		// @required @property (copy, nonatomic) NSString * _Nullable placeID;
 		[Abstract]
-		[Export ("setPeopleIDs:")]
-		void SetPeopleIds ([NullAllowed] string [] peolpleId);
+		[NullAllowed, Export ("placeID")]
+		string PlaceId { get; set; }
 
-		// @required @property (copy, nonatomic) NSString * placeID;
+		// @required @property (copy, nonatomic) NSString * _Nullable ref;
 		[Abstract]
-		[Export ("placeID")]
-		string GetPlaceId ();
+		[NullAllowed, Export ("ref")]
+		string Ref { get; set; }
 
+		// @required @property (copy, nonatomic) NSString * _Nullable pageID;
 		[Abstract]
-		[Export ("setPlaceID:")]
-		void SetPlaceId (string placeId);
-
-		// @required @property (copy, nonatomic) NSString * ref;
-		[Abstract]
-		[Export ("ref")]
-		string GetRef ();
-
-		[Abstract]
-		[Export ("setRef:")]
-		void SetRef (string aRef);
-
-		// @required @property (copy, nonatomic) NSString * pageID;
-		[Abstract]
-		[Export ("pageID")]
+		[NullAllowed, Export ("pageID")]
 		string PageId { get; set; }
 
-		// @required @property (readonly, copy, nonatomic) NSString * shareUUID;
+		// @required @property (readonly, copy, nonatomic) NSString * _Nullable shareUUID;
 		[Abstract]
-		[Export ("shareUUID")]
+		[NullAllowed, Export ("shareUUID")]
 		string ShareUuid { get; }
 
-		// @required -(NSDictionary<NSString *,id> *)addParameters:(NSDictionary<NSString *,id> *)existingParameters bridgeOptions:(FBSDKShareBridgeOptions)bridgeOptions;
+		// @required -(NSDictionary<NSString *,id> * _Nonnull)addParameters:(NSDictionary<NSString *,id> * _Nonnull)existingParameters bridgeOptions:(FBSDKShareBridgeOptions)bridgeOptions __attribute__((warn_unused_result("")));
 		[Abstract]
 		[Export ("addParameters:bridgeOptions:")]
-		NSDictionary<NSString, NSObject> AddParameters (NSDictionary<NSString, NSObject> existingParameters, ShareBridgeOptions bridgeOptions);
-	}
-
-	interface ISharingScheme { }
-
-	// @protocol FBSDKSharingScheme
-	[Obsolete ("`SharingScheme` is deprecated and will be removed in the next major release.")]
-	[Protocol (Name = "FBSDKSharingScheme")]
-	interface SharingScheme {
-		// @required -(NSString * _Nullable)schemeForMode:(FBSDKShareDialogMode)mode;
-		[Abstract]
-		[return: NullAllowed]
-		[Export ("schemeForMode:")]
-		string GetScheme (ShareDialogMode mode);
-	}
-
-	interface ISharingValidation { }
-
-	// @protocol FBSDKSharingValidation
-	[Protocol (Name = "FBSDKSharingValidation")]
-	interface SharingValidation {
-		// @required -(BOOL)validateWithOptions:(FBSDKShareBridgeOptions)bridgeOptions error:(NSError **)errorRef;
-		[Abstract]
-		[Export ("validateWithOptions:error:")]
-		bool Validate (ShareBridgeOptions bridgeOptions, out NSError errorRef);
+		NSDictionary<NSString, NSObject> BridgeOptions (NSDictionary<NSString, NSObject> existingParameters, ShareBridgeOptions bridgeOptions);
 	}
 }

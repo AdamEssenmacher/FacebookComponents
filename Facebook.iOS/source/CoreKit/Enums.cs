@@ -435,4 +435,13 @@ namespace Facebook.CoreKit
 		DoNotInvalidateTokenOnError = 1uL << 2,
 		DisableErrorRecovery = 1uL << 3
 	}
+
+		
+	[Native]
+	public enum AdvertisingTrackingStatus : ulong
+	{
+		Allowed,
+		Disallowed,
+		Unspecified
+	}
 }

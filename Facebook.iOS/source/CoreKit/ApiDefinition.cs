@@ -26,32 +26,34 @@ namespace Facebook.CoreKit {
 		bool DidExpireKey { get; }
 	}
 
-	// @interface FBSDKAccessToken : NSObject <FBSDKCopying, NSSecureCoding>
+	// @interface FBSDKAccessToken : NSObject <NSCopying, NSObject, NSSecureCoding, FBSDKAccessTokenProviding, FBSDKTokenStringProviding>
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKAccessToken")]
 	interface AccessToken : INSCopying, INSSecureCoding {
 
-		// extern NSString *const FBSDKAccessTokenDidChangeNotification;
+		// extern NS_SWIFT_NAME(AccessTokenDidChange) const NSNotificationName FBSDKAccessTokenDidChangeNotification __attribute__((swift_name("AccessTokenDidChange")));
 		[Notification (typeof (AccessTokenDidChangeEventArgs))]
 		[Field ("FBSDKAccessTokenDidChangeNotification", "__Internal")]
 		NSString DidChangeNotification { get; }
 
+		// extern NS_SWIFT_NAME(AccessTokenChangeNewKey) NSString *const FBSDKAccessTokenChangeNewKey __attribute__((swift_name("AccessTokenChangeNewKey")));
 		[Field ("FBSDKAccessTokenChangeNewKey", "__Internal")]
 		NSString NewTokenKey { get; }
 
+		// extern NS_SWIFT_NAME(AccessTokenDidChangeUserIDKey) NSString *const FBSDKAccessTokenDidChangeUserIDKey __attribute__((swift_name("AccessTokenDidChangeUserIDKey")));
 		[Field ("FBSDKAccessTokenDidChangeUserIDKey", "__Internal")]
 		NSString UserIdKey { get; }
 
+		// extern NS_SWIFT_NAME(AccessTokenChangeOldKey) NSString *const FBSDKAccessTokenChangeOldKey __attribute__((swift_name("AccessTokenChangeOldKey")));
 		[Field ("FBSDKAccessTokenChangeOldKey", "__Internal")]
 		NSString OldTokenKey { get; }
 
-		// FBSDK_EXTERN NSString *const FBSDKAccessTokenDidExpire;
+		// extern NS_SWIFT_NAME(AccessTokenDidExpireKey) NSString *const FBSDKAccessTokenDidExpireKey __attribute__((swift_name("AccessTokenDidExpireKey")));
 		[Field ("FBSDKAccessTokenDidExpireKey", "__Internal")]
 		NSString DidExpireKey { get; }
 
-		// @property (copy, nonatomic, class) FBSDKAccessToken * _Nullable currentAccessToken;
+		// @property (copy, nonatomic, class) NS_SWIFT_NAME(current) FBSDKAccessToken * currentAccessToken __attribute__((swift_name("current")));
 		[Static]
-		[NullAllowed]
 		[Export ("currentAccessToken", ArgumentSemantic.Copy)]
 		AccessToken CurrentAccessToken { get; set; }
 
@@ -60,51 +62,43 @@ namespace Facebook.CoreKit {
 		[Export ("isCurrentAccessTokenActive")]
 		bool CurrentAccessTokenIsActive { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * appID;
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull appID;
 		[Export ("appID")]
 		string AppId { get; }
 
-		// @property (readonly, copy, nonatomic) NSDate * dataAccessExpirationDate;
+		// @property (readonly, copy, nonatomic) NSDate * _Nonnull dataAccessExpirationDate;
 		[Export ("dataAccessExpirationDate", ArgumentSemantic.Copy)]
 		NSDate DataAccessExpirationDate { get; }
 
-		// @property (readonly, copy, nonatomic) NSSet * declinedPermissions;
+		// @property (readonly, copy, nonatomic) NS_REFINED_FOR_SWIFT NSSet<NSString *> * declinedPermissions __attribute__((swift_private));
 		[Export ("declinedPermissions", ArgumentSemantic.Copy)]
 		NSSet DeclinedPermissions { get; }
 
-		// @property (readonly, copy, nonatomic) NSSet<NSString *> * _Nonnull expiredPermissions;
+		// @property (readonly, copy, nonatomic) NS_REFINED_FOR_SWIFT NSSet<NSString *> * expiredPermissions __attribute__((swift_private));
 		[Export ("expiredPermissions", ArgumentSemantic.Copy)]
 		NSSet ExpiredPermissions { get; }
 
-		// @property (readonly, copy, nonatomic) NSDate * expirationDate;
+		// @property (readonly, copy, nonatomic) NSDate * _Nonnull expirationDate;
 		[Export ("expirationDate", ArgumentSemantic.Copy)]
 		NSDate ExpirationDate { get; }
 
-		// @property (readonly, copy, nonatomic) NSSet * permissions;
+		// @property (readonly, copy, nonatomic) NS_REFINED_FOR_SWIFT NSSet<NSString *> * permissions __attribute__((swift_private));
 		[Export ("permissions", ArgumentSemantic.Copy)]
 		NSSet Permissions { get; }
 
-		// @property (readonly, copy, nonatomic) NSDate * refreshDate;
+		// @property (readonly, copy, nonatomic) NSDate * _Nonnull refreshDate;
 		[Export ("refreshDate", ArgumentSemantic.Copy)]
 		NSDate RefreshDate { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * tokenString;
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull tokenString;
 		[Export ("tokenString", ArgumentSemantic.Copy)]
 		string TokenString { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * userID;
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull userID;
 		[Export ("userID", ArgumentSemantic.Copy)]
 		string UserId { get; }
 
-		[Obsolete ("Use UserId property instead. This will be removed in future versions.")]
-		[Wrap ("UserId")]
-		string UserID { get; }
-
-		[Obsolete ("Use the 'GraphDomain' property on 'AuthenticationToken' instead. This will be removed in future versions.")]
-		[Export ("graphDomain")]
-		string GraphDomain { get; }
-
-		// @property (readonly, assign, nonatomic, getter = isExpired) BOOL expired;
+		// @property (readonly, getter = isExpired, assign, nonatomic) BOOL expired;
 		[Export ("isExpired", ArgumentSemantic.Assign)]
 		bool IsExpired { get; }
 
@@ -112,27 +106,27 @@ namespace Facebook.CoreKit {
 		[Export ("isDataAccessExpired")]
 		bool IsDataAccessExpired { get; }
 
-		// -(instancetype)initWithTokenString:(NSString *)tokenString permissions:(NSArray *)permissions declinedPermissions:(NSArray *)declinedPermissions expiredPermissions:(NSArray<NSString *> *)expiredPermissions appID:(NSString *)appID userID:(NSString *)userID expirationDate:(NSDate *)expirationDate refreshDate:(NSDate *)refreshDate dataAccessExpirationDate:(NSDate *)dataAccessExpirationDate __attribute__((objc_designated_initializer));
+		// -(instancetype _Nonnull)initWithTokenString:(NSString * _Nonnull)tokenString permissions:(NSArray<NSString *> * _Nonnull)permissions declinedPermissions:(NSArray<NSString *> * _Nonnull)declinedPermissions expiredPermissions:(NSArray<NSString *> * _Nonnull)expiredPermissions appID:(NSString * _Nonnull)appID userID:(NSString * _Nonnull)userID expirationDate:(NSDate * _Nullable)expirationDate refreshDate:(NSDate * _Nullable)refreshDate dataAccessExpirationDate:(NSDate * _Nullable)dataAccessExpirationDate __attribute__((objc_designated_initializer));
 		[DesignatedInitializer]
 		[Export ("initWithTokenString:permissions:declinedPermissions:expiredPermissions:appID:userID:expirationDate:refreshDate:dataAccessExpirationDate:")]
 		NativeHandle Constructor (string tokenString, string [] permissions, string [] declinedPermissions, string [] expiredPermissions, string appId, string userId, [NullAllowed] NSDate expirationDate, [NullAllowed] NSDate refreshDate, [NullAllowed] NSDate dataAccessExpirationDate);
 
-		// -(BOOL)hasGranted:(NSString *)permission;
+		// -(BOOL)hasGranted:(NSString * _Nonnull)permission __attribute__((swift_name("hasGranted(permission:)")));
 		[Export ("hasGranted:")]
 		bool HasGranted (string permission);
 
-		// -(BOOL)isEqualToAccessToken:(FBSDKAccessToken *)token;
+		// -(BOOL)isEqualToAccessToken:(FBSDKAccessToken * _Nonnull)token;
 		[Export ("isEqualToAccessToken:")]
 		bool Equals (AccessToken token);
 
-		// + (void)refreshCurrentAccessToken:(FBSDKGraphRequestBlockHandler)completionHandler;
+		// +(void)refreshCurrentAccessTokenWithCompletion:(FBSDKGraphRequestCompletion _Nullable)completion;
 		[Static]
 		[Async (ResultTypeName = "GraphRequestResult")]
 		[Export ("refreshCurrentAccessToken:")]
 		void RefreshCurrentAccessToken ([NullAllowed] GraphRequestCompletionHandler completionHandler);
 	}
 
-	// @interface FBSDKAppEvents : NSObject
+	// @interface FBSDKAppEvents : NSObject <FBSDKEventLogging, FBSDKAppEventsConfiguring, FBSDKApplicationActivating, FBSDKApplicationLifecycleObserving, FBSDKApplicationStateSetting, FBSDKSourceApplicationTracking, FBSDKUserIDProviding>
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKAppEvents")]
 	interface AppEvents {
@@ -142,216 +136,158 @@ namespace Facebook.CoreKit {
 		[Export ("shared", ArgumentSemantic.Strong)]
 		AppEvents Shared { get; }
 
-		// extern NSString *const FBSDKAppEventsLoggingResultNotification;
+		// extern const NSNotificationName FBSDKAppEventsLoggingResultNotification __attribute__((swift_name("AppEventsLoggingResult")));
 		[Notification]
 		[Field ("FBSDKAppEventsLoggingResultNotification", "__Internal")]
 		NSString LoggingResultNotification { get; }
 
-		// extern NSString *const FBSDKAppEventsOverrideAppIDBundleKey;
+		// extern NS_SWIFT_NAME(AppEventsOverrideAppIDBundleKey) NSString *const FBSDKAppEventsOverrideAppIDBundleKey __attribute__((swift_name("AppEventsOverrideAppIDBundleKey")));
 		[Field ("FBSDKAppEventsOverrideAppIDBundleKey", "__Internal")]
 		NSString OverrideAppIdBundleKey { get; }
 
-		// @property (assign, nonatomic, class) FBSDKAppEventsFlushBehavior flushBehavior;
-		[Static]
+		// @property (nonatomic) FBSDKAppEventsFlushBehavior flushBehavior;
 		[Export ("flushBehavior", ArgumentSemantic.Assign)]
 		AppEventsFlushBehavior FlushBehavior { get; set; }
 
-		// @property (copy, nonatomic, class) NSString * _Nullable loggingOverrideAppID;
-		[Static]
+		// @property (copy, nonatomic) NSString * _Nullable loggingOverrideAppID;
 		[NullAllowed]
 		[Export ("loggingOverrideAppID")]
 		string LoggingOverrideAppId { get; set; }
 
-		[Obsolete ("Use the LoggingOverrideAppId static property instead. This will be removed in future versions.")]
-		[Static]
-		[Wrap ("LoggingOverrideAppId")]
-		string LoggingOverrideAppID { get; set; }
-
-		// @property (copy, nonatomic, class) NSString * _Nullable userID;
-		[Static]
+		// @property (copy, nonatomic) NSString * _Nullable userID;
 		[NullAllowed]
 		[Export ("userID")]
 		string UserId { get; set; }
 
-		// @property (readonly, nonatomic, class) NSString * _Nonnull anonymousID;
-		[Static]
+		// @property (readonly, nonatomic) NSString * _Nonnull anonymousID;
 		[Export ("anonymousID")]
 		string AnonymousId { get; }
 
-		// +(void)logEvent:(NSString *)eventName;
+		// -(void)logEvent:(FBSDKAppEventName _Nonnull)eventName;
 		[Protected]
-		[Static]
 		[Export ("logEvent:")]
 		void LogEvent (NSString eventName);
 
-		[Static]
 		[Wrap ("LogEvent (eventName.GetConstant ())")]
 		void LogEvent (AppEventName eventName);
 
-		[Static]
 		[Wrap ("LogEvent (new NSString (eventName))")]
 		void LogEvent (string eventName);
 
-		// +(void)logEvent:(NSString *)eventName valueToSum:(double)valueToSum;
+		// -(void)logEvent:(FBSDKAppEventName _Nonnull)eventName valueToSum:(double)valueToSum;
 		[Protected]
-		[Static]
 		[Export ("logEvent:valueToSum:")]
 		void LogEvent (NSString eventName, double valueToSum);
 
-		[Static]
 		[Wrap ("LogEvent (eventName.GetConstant (), valueToSum)")]
 		void LogEvent (AppEventName eventName, double valueToSum);
 
-		[Static]
 		[Wrap ("LogEvent (new NSString (eventName), valueToSum)")]
 		void LogEvent (string eventName, double valueToSum);
 
-		// +(void)logEvent:(NSString *)eventName parameters:(NSDictionary *)parameters;
+		// -(void)logEvent:(FBSDKAppEventName _Nonnull)eventName parameters:(NSDictionary<FBSDKAppEventParameterName,id> * _Nullable)parameters;
 		[Protected]
-		[Static]
 		[Export ("logEvent:parameters:")]
 		void LogEvent (NSString eventName, [NullAllowed] NSDictionary parameters);
 
-		[Static]
 		[Wrap ("LogEvent (eventName.GetConstant (), parameters)")]
 		void LogEvent (AppEventName eventName, [NullAllowed] NSDictionary parameters);
 
-		[Static]
 		[Wrap ("LogEvent (new NSString (eventName), parameters)")]
 		void LogEvent (string eventName, [NullAllowed] NSDictionary parameters);
 
-		// +(void)logEvent:(NSString *)eventName valueToSum:(double)valueToSum parameters:(NSDictionary *)parameters;
+		// -(void)logEvent:(FBSDKAppEventName _Nonnull)eventName valueToSum:(double)valueToSum parameters:(NSDictionary<FBSDKAppEventParameterName,id> * _Nullable)parameters;
 		[Protected]
-		[Static]
 		[Export ("logEvent:valueToSum:parameters:")]
 		void LogEvent (NSString eventName, double valueToSum, [NullAllowed] NSDictionary parameters);
 
-		[Static]
 		[Wrap ("LogEvent (eventName.GetConstant (), valueToSum, parameters)")]
 		void LogEvent (AppEventName eventName, double valueToSum, [NullAllowed] NSDictionary parameters);
 
-		[Static]
 		[Wrap ("LogEvent (new NSString (eventName), valueToSum, parameters)")]
 		void LogEvent (string eventName, double valueToSum, [NullAllowed] NSDictionary parameters);
 
-		// +(void)logEvent:(NSString *)eventName valueToSum:(NSNumber *)valueToSum parameters:(NSDictionary *)parameters accessToken:(FBSDKAccessToken *)accessToken;
+		// -(void)logEvent:(FBSDKAppEventName _Nonnull)eventName valueToSum:(NSNumber * _Nullable)valueToSum parameters:(NSDictionary<FBSDKAppEventParameterName,id> * _Nullable)parameters accessToken:(FBSDKAccessToken * _Nullable)accessToken;
 		[Protected]
-		[Static]
 		[Export ("logEvent:valueToSum:parameters:accessToken:")]
 		void LogEvent (NSString eventName, [NullAllowed] NSNumber valueToSum, [NullAllowed] NSDictionary parameters, [NullAllowed] AccessToken accessToken);
 
-		[Static]
 		[Wrap ("LogEvent (eventName.GetConstant (), valueToSum, parameters, accessToken)")]
 		void LogEvent (AppEventName eventName, [NullAllowed] NSNumber valueToSum, [NullAllowed] NSDictionary parameters, [NullAllowed] AccessToken accessToken);
 
-		[Static]
 		[Wrap ("LogEvent (new NSString (eventName), valueToSum, parameters, accessToken)")]
 		void LogEvent (string eventName, [NullAllowed] NSNumber valueToSum, [NullAllowed] NSDictionary parameters, [NullAllowed] AccessToken accessToken);
 
-		// +(void)logPurchase:(double)purchaseAmount currency:(NSString *)currency;
-		[Static]
+		// -(void)logPurchase:(double)purchaseAmount currency:(NSString * _Nonnull)currency __attribute__((swift_name("logPurchase(amount:currency:)")));
 		[Export ("logPurchase:currency:")]
 		void LogPurchase (double purchaseAmount, string currency);
 
-		// +(void)logPurchase:(double)purchaseAmount currency:(NSString *)currency parameters:(NSDictionary *)parameters;
-		[Static]
+		// -(void)logPurchase:(double)purchaseAmount currency:(NSString * _Nonnull)currency parameters:(NSDictionary<FBSDKAppEventParameterName,id> * _Nullable)parameters __attribute__((swift_name("logPurchase(amount:currency:parameters:)")));
 		[Export ("logPurchase:currency:parameters:")]
 		void LogPurchase (double purchaseAmount, string currency, [NullAllowed] NSDictionary parameters);
 
-		// +(void)logPurchase:(double)purchaseAmount currency:(NSString *)currency parameters:(NSDictionary *)parameters accessToken:(FBSDKAccessToken *)accessToken;
-		[Static]
+		// -(void)logPurchase:(double)purchaseAmount currency:(NSString * _Nonnull)currency parameters:(NSDictionary<FBSDKAppEventParameterName,id> * _Nullable)parameters accessToken:(FBSDKAccessToken * _Nullable)accessToken __attribute__((swift_name("logPurchase(amount:currency:parameters:accessToken:)")));
 		[Export ("logPurchase:currency:parameters:accessToken:")]
 		void LogPurchase (double purchaseAmount, string currency, [NullAllowed] NSDictionary parameters, [NullAllowed] AccessToken accessToken);
 
-		// + (void)logPushNotificationOpen:(NSDictionary *)payload;
-		[Static]
+		// -(void)logPushNotificationOpen:(NSDictionary<NSString *,id> * _Nonnull)payload __attribute__((swift_name("logPushNotificationOpen(payload:)")));
 		[Export ("logPushNotificationOpen:")]
 		void LogPushNotificationOpen (NSDictionary payload);
 
-		// + (void)logPushNotificationOpen:(NSDictionary *)payload action:(NSString *)action;
-		[Static]
+		// -(void)logPushNotificationOpen:(NSDictionary<NSString *,id> * _Nonnull)payload action:(NSString * _Nonnull)action __attribute__((swift_name("logPushNotificationOpen(payload:action:)")));
 		[Export ("logPushNotificationOpen:action:")]
 		void LogPushNotificationOpen (NSDictionary payload, string action);
 
-		// +(void)logProductItem:(NSString *)itemID availability:(FBSDKProductAvailability)availability condition:(FBSDKProductCondition)condition description:(NSString *)description imageLink:(NSString *)imageLink link:(NSString *)link title:(NSString *)title priceAmount:(double)priceAmount currency:(NSString *)currency gtin:(NSString *)gtin mpn:(NSString *)mpn brand:(NSString *)brand parameters:(NSDictionary *)parameters;
-		[Static]
+		// -(void)logProductItem:(NSString * _Nonnull)itemID availability:(FBSDKProductAvailability)availability condition:(FBSDKProductCondition)condition description:(NSString * _Nonnull)description imageLink:(NSString * _Nonnull)imageLink link:(NSString * _Nonnull)link title:(NSString * _Nonnull)title priceAmount:(double)priceAmount currency:(NSString * _Nonnull)currency gtin:(NSString * _Nullable)gtin mpn:(NSString * _Nullable)mpn brand:(NSString * _Nullable)brand parameters:(NSDictionary<NSString *,id> * _Nullable)parameters __attribute__((swift_name("logProductItem(id:availability:condition:description:imageLink:link:title:priceAmount:currency:gtin:mpn:brand:parameters:)")));
 		[Export ("logProductItem:availability:condition:description:imageLink:link:title:priceAmount:currency:gtin:mpn:brand:parameters:")]
 		void LogProductItem (string itemId, ProductAvailability availability, ProductCondition condition, string description, string imageLink, string link, string title, double priceAmount, string currency, [NullAllowed] string gtin, [NullAllowed] string mpn, [NullAllowed] string brand, [NullAllowed] NSDictionary parameters);
 
-		// +(void)activateApp;
+		// -(void)activateApp;
 		[Export ("activateApp")]
 		void ActivateApp ();
 
-		// + (void)setPushNotificationsDeviceToken:(NSData *)deviceToken;
-		[Static]
+		// -(void)setPushNotificationsDeviceToken:(NSData * _Nullable)deviceToken;
 		[Export ("setPushNotificationsDeviceToken:")]
 		void SetPushNotificationsDeviceToken ([NullAllowed] NSData deviceToken);
 
-		// +(void)setPushNotificationsDeviceTokenString:(NSString *)deviceTokenString;
-		[Static]
+		// -(void)setPushNotificationsDeviceTokenString:(NSString * _Nullable)deviceTokenString __attribute__((swift_name("setPushNotificationsDeviceToken(_:)")));
 		[Export ("setPushNotificationsDeviceTokenString:")]
 		void SetPushNotificationsDeviceToken ([NullAllowed] string deviceTokenString);
 
-		// +(void)flush;
-		[Static]
+		// -(void)flush;
 		[Export ("flush")]
 		void Flush ();
 
-		// +(FBSDKGraphRequest *)requestForCustomAudienceThirdPartyIDWithAccessToken:(FBSDKAccessToken *)accessToken;
-		[Static]
+		// -(FBSDKGraphRequest * _Nullable)requestForCustomAudienceThirdPartyIDWithAccessToken:(FBSDKAccessToken * _Nullable)accessToken __attribute__((swift_name("requestForCustomAudienceThirdPartyID(accessToken:)")));
 		[Export ("requestForCustomAudienceThirdPartyIDWithAccessToken:")]
 		GraphRequest RequestForCustomAudienceThirdPartyId ([NullAllowed] AccessToken accessToken);
 
-		// + (void)clearUserID;
-		[Static]
-		[Export ("clearUserID")]
-		void ClearUserId ();
-
-		// +(void)setUserEmail:(NSString * _Nullable)email firstName:(NSString * _Nullable)firstName lastName:(NSString * _Nullable)lastName phone:(NSString * _Nullable)phone dateOfBirth:(NSString * _Nullable)dateOfBirth gender:(NSString * _Nullable)gender city:(NSString * _Nullable)city state:(NSString * _Nullable)state zip:(NSString * _Nullable)zip country:(NSString * _Nullable)country;
-		[Static]
+		// -(void)setUserEmail:(NSString * _Nullable)email firstName:(NSString * _Nullable)firstName lastName:(NSString * _Nullable)lastName phone:(NSString * _Nullable)phone dateOfBirth:(NSString * _Nullable)dateOfBirth gender:(NSString * _Nullable)gender city:(NSString * _Nullable)city state:(NSString * _Nullable)state zip:(NSString * _Nullable)zip country:(NSString * _Nullable)country __attribute__((swift_name("setUser(email:firstName:lastName:phone:dateOfBirth:gender:city:state:zip:country:)")));
 		[Export ("setUserEmail:firstName:lastName:phone:dateOfBirth:gender:city:state:zip:country:")]
 		void SetUserEmail ([NullAllowed] string email, [NullAllowed] string firstName, [NullAllowed] string lastName, [NullAllowed] string phone, [NullAllowed] string dateOfBirth, [NullAllowed] string gender, [NullAllowed] string city, [NullAllowed] string state, [NullAllowed] string zip, [NullAllowed] string country);
 
-		// +(NSString *)getUserData;
-		[Static]
+		// -(NSString * _Nullable)getUserData;
 		[return: NullAllowed]
 		[Export ("getUserData")]
 		string GetUserData ();
 
-		// +(void)clearUserData;
-		[Static]
+		// -(void)clearUserData;
 		[Export ("clearUserData")]
 		void ClearUserData ();
 
-		// +(void)setUserData:(NSString * _Nullable)data forType:(FBSDKAppEventUserDataType _Nonnull)type;
-		[Static]
+		// -(void)setUserData:(NSString * _Nullable)data forType:(FBSDKAppEventUserDataType _Nonnull)type;
 		[Export ("setUserData:forType:")]
 		void SetUserData ([NullAllowed] string data, string type);
 
-		// +(void)clearUserDataForType:(FBSDKAppEventUserDataType _Nonnull)type;
-		[Static]
+		// -(void)clearUserDataForType:(FBSDKAppEventUserDataType _Nonnull)type;
 		[Export ("clearUserDataForType:")]
 		void ClearUserDataForType (string type);
 
-		// +(void)updateUserProperties:(NSDictionary *)properties handler:(FBSDKGraphRequestBlockHandler)handler;
-		[Static]
-		[Async (ResultTypeName = "GraphRequestResult")]
-		[Export ("updateUserProperties:handler:")]
-		void UpdateUserProperties (NSDictionary properties, [NullAllowed] GraphRequestCompletionHandler handler);
+		// -(void)setIsUnityInitialized:(BOOL)isUnityInitialized;
+		[Export ("setIsUnityInitialized:")]
+		void SetIsUnityInitialized (bool isUnityInitialized);
 
-		// +(void)augmentHybridWKWebView:(WKWebView *)webView;
-		[Unavailable (PlatformName.TvOS)]
-		[Static]
-		[Export ("augmentHybridWKWebView:")]
-		void AugmentHybrid (WKWebView webView);
-
-		// +(void)setIsUnityInit:(BOOL)isUnityInit;
-		[Static]
-		[Export ("setIsUnityInit:")]
-		void SetIsUnityInit (bool isUnityInit);
-
-		// +(void)sendEventBindingsToUnity;
-		[Static]
+		// -(void)sendEventBindingsToUnity;
 		[Export ("sendEventBindingsToUnity")]
 		void SendEventBindingsToUnity ();
 	}
@@ -366,15 +302,15 @@ namespace Facebook.CoreKit {
 		[Export ("sharedInstance", ArgumentSemantic.Strong)]
 		ApplicationDelegate SharedInstance { get; }
 
-		// -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
+		// -(BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url sourceApplication:(NSString * _Nullable)sourceApplication annotation:(id _Nullable)annotation;
 		[Export ("application:openURL:sourceApplication:annotation:")]
 		bool OpenUrl (UIApplication application, NSUrl url, [NullAllowed] string sourceApplication, [NullAllowed] NSObject annotation);
 
-		// -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options;
+		// -(BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> * _Nonnull)options;
 		[Export ("application:openURL:options:")]
 		bool OpenUrl (UIApplication application, NSUrl url, NSDictionary options);
 
-		// -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+		// -(BOOL)application:(UIApplication * _Nonnull)application didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey,id> * _Nullable)launchOptions;
 		[Export ("application:didFinishLaunchingWithOptions:")]
 		bool FinishedLaunching ([NullAllowed] UIApplication application, [NullAllowed] NSDictionary launchOptions);
 
@@ -382,36 +318,51 @@ namespace Facebook.CoreKit {
 		[Export ("initializeSDK")]
 		void InitializeSdk ();
 	}
+	
+	// @protocol FBSDKAppLink
+	[Protocol (Name = "FBSDKAppLink")]
+	interface AppLinkProtocol
+	{
+		// @required @property (readonly, nonatomic, strong) NSURL * _Nullable sourceURL;
+		[Abstract]
+		[NullAllowed, Export ("sourceURL", ArgumentSemantic.Strong)]
+		NSUrl SourceUrl { get; }
+
+		// @required @property (readonly, copy, nonatomic) NSArray<id<FBSDKAppLinkTarget>> * _Nonnull targets;
+		[Abstract]
+		[Export ("targets", ArgumentSemantic.Copy)]
+		AppLinkTarget[] Targets { get; }
+
+		// @required @property (readonly, nonatomic, strong) NSURL * _Nullable webURL;
+		[Abstract]
+		[NullAllowed, Export ("webURL", ArgumentSemantic.Strong)]
+		NSUrl WebUrl { get; }
+
+		// @required @property (readonly, getter = isBackToReferrer, assign, nonatomic) BOOL backToReferrer;
+		[Abstract]
+		[Export ("backToReferrer")]
+		bool BackToReferrer { [Bind ("isBackToReferrer")] get; }
+	}
 
 	// @interface FBSDKAppLink : NSObject
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKAppLink")]
-	interface AppLink : INativeObject {
-		// extern NSString *const _Nonnull FBSDKAppLinkVersion;
+	interface AppLink : AppLinkProtocol, INativeObject {
+		/// extern NSString *const FBSDKAppLinkVersion __attribute__((swift_name("AppLinkVersion")));
 		[Field ("FBSDKAppLinkVersion", "__Internal")]
 		NSString Version { get; }
 
-		// +(instancetype _Nonnull)appLinkWithSourceURL:(NSURL * _Nonnull)sourceURL targets:(NSArray<FBSDKAppLinkTarget *> * _Nonnull)targets webURL:(NSURL * _Nullable)webURL;
-		[Static]
-		[Export ("appLinkWithSourceURL:targets:webURL:")]
-		AppLink Create ([NullAllowed] NSUrl sourceUrl, AppLinkTarget [] targets, [NullAllowed] NSUrl webUrl);
+		// -(instancetype _Nonnull)initWithSourceURL:(NSURL * _Nullable)sourceURL targets:(NSArray<id<FBSDKAppLinkTarget>> * _Nonnull)targets webURL:(NSURL * _Nullable)webURL;
+		[Export ("initWithSourceURL:targets:webURL:")]
+		NativeHandle Constructor ([NullAllowed] NSUrl sourceURL, AppLinkTarget[] targets, [NullAllowed] NSUrl webURL);
 
-		// @property (readonly, nonatomic, strong) NSURL * _Nonnull sourceURL;
-		[NullAllowed]
-		[Export ("sourceURL", ArgumentSemantic.Strong)]
-		NSUrl SourceUrl { get; }
-
-		// @property (nonatomic, readonly, copy) NSArray<id<FBSDKAppLinkTarget>> *targets;
-		[Export ("targets", ArgumentSemantic.Copy)]
-		AppLinkTarget [] Targets { get; }
-
-		// @property (readonly, nonatomic, strong) NSURL * _Nullable webURL;
-		[NullAllowed]
-		[Export ("webURL", ArgumentSemantic.Strong)]
-		NSUrl WebUrl { get; }
+		// -(instancetype _Nonnull)initWithSourceURL:(NSURL * _Nullable)sourceURL targets:(NSArray<id<FBSDKAppLinkTarget>> * _Nonnull)targets webURL:(NSURL * _Nullable)webURL isBackToReferrer:(BOOL)isBackToReferrer __attribute__((objc_designated_initializer));
+		[Export ("initWithSourceURL:targets:webURL:isBackToReferrer:")]
+		[DesignatedInitializer]
+		NativeHandle Constructor ([NullAllowed] NSUrl sourceURL, AppLinkTarget[] targets, [NullAllowed] NSUrl webURL, bool isBackToReferrer);
 	}
 
-	// typedef void (^FBSDKAppLinkNavigationBlockHandler)(FBSDKAppLinkNavigationType, NSError * _Nullable);
+	// typedef void (^FBSDKAppLinkNavigationBlock)(FBSDKAppLinkNavigationType, NSError * _Nullable);
 	delegate void AppLinkNavigationBlockHandler (AppLinkNavigationType navType, [NullAllowed] NSError error);
 
 	// @interface FBSDKAppLinkNavigation : NSObject
@@ -435,53 +386,48 @@ namespace Facebook.CoreKit {
 		[Export ("appLink", ArgumentSemantic.Strong)]
 		AppLink AppLink { get; }
 
-		// -(FBSDKAppLinkNavigationType)navigationType;
+		// @property (readonly, nonatomic) FBSDKAppLinkNavigationType navigationType;
 		[Export ("navigationType")]
 		AppLinkNavigationType GetNavigationType ();
 
-		// +(instancetype _Nonnull)navigationWithAppLink:(FBSDKAppLink * _Nonnull)appLink extras:(NSDictionary<NSString *,id> * _Nonnull)extras appLinkData:(NSDictionary<NSString *,id> * _Nonnull)appLinkData;
-		[Static]
-		[Export ("navigationWithAppLink:extras:appLinkData:")]
-		AppLinkNavigation Create (AppLink appLink, NSDictionary<NSString, NSObject> extras, NSDictionary<NSString, NSObject> appLinkData);
+		// -(instancetype _Nonnull)initWithAppLink:(FBSDKAppLink * _Nullable)appLink extras:(NSDictionary<NSString *,id> * _Nonnull)extras appLinkData:(NSDictionary<NSString *,id> * _Nonnull)appLinkData __attribute__((objc_designated_initializer));
+		[DesignatedInitializer]
+		[Export ("initWithAppLink:extras:appLinkData:")]
+		NativeHandle Constructor ([NullAllowed] AppLink appLink, NSDictionary<NSString, NSObject> extras, NSDictionary<NSString, NSObject> appLinkData);
 
-		// +(NSDictionary<NSString *,NSDictionary<NSString *,NSString *> *> * _Nonnull)callbackAppLinkDataForAppWithName:(NSString * _Nonnull)appName url:(NSString * _Nonnull)url;
+		// +(NSDictionary<NSString *,NSDictionary<NSString *,NSString *> *> * _Nonnull)callbackAppLinkDataForAppWithName:(NSString * _Nonnull)appName url:(NSString * _Nonnull)url __attribute__((warn_unused_result("")));
 		[Static]
 		[Export ("callbackAppLinkDataForAppWithName:url:")]
 		NSDictionary<NSString, NSDictionary<NSString, NSString>> GetCallbackAppLinkData (string appName, string url);
 
-		// -(FBSDKAppLinkNavigationType)navigate:(NSError * _Nullable * _Nullable)error;
+		// -(void)navigate:(FBSDKAppLinkNavigationBlock _Nullable)handler;
 		[Export ("navigate:")]
-		AppLinkNavigationType Navigate ([NullAllowed] out NSError error);
+		void Navigate ([NullAllowed] AppLinkNavigationBlockHandler handler);
 
-		// +(void)resolveAppLink:(NSURL * _Nonnull)destination handler:(FBSDKAppLinkBlockHandler _Nonnull)handler;
+		// +(void)resolveAppLink:(NSURL * _Nonnull)destination handler:(FBSDKAppLinkBlock _Nonnull)handler;
 		[Async]
 		[Static]
 		[Export ("resolveAppLink:handler:")]
 		void ResolveAppLink (NSUrl destination, AppLinkBlockHandler handler);
 
-		// +(void)resolveAppLink:(NSURL * _Nonnull)destination resolver:(id<FBSDKAppLinkResolving> _Nonnull)resolver handler:(FBSDKAppLinkBlockHandler _Nonnull)handler;
+		// +(void)resolveAppLink:(NSURL * _Nonnull)destination resolver:(id<FBSDKAppLinkResolving> _Nonnull)resolver handler:(FBSDKAppLinkBlock _Nonnull)handler;
 		[Async]
 		[Static]
 		[Export ("resolveAppLink:resolver:handler:")]
 		void ResolveAppLink (NSUrl destination, IAppLinkResolving resolver, AppLinkBlockHandler handler);
 
-		// +(FBSDKAppLinkNavigationType)navigateToAppLink:(FBSDKAppLink * _Nonnull)link error:(NSError * _Nullable * _Nullable)error;
-		[Static]
-		[Export ("navigateToAppLink:error:")]
-		AppLinkNavigationType Navigate (AppLink link, [NullAllowed] out NSError error);
-
-		// +(FBSDKAppLinkNavigationType)navigationTypeForLink:(FBSDKAppLink * _Nonnull)link;
+		// +(FBSDKAppLinkNavigationType)navigationTypeForLink:(FBSDKAppLink * _Nonnull)appLink __attribute__((warn_unused_result("")));
 		[Static]
 		[Export ("navigationTypeForLink:")]
 		AppLinkNavigationType GetNavigationType (AppLink link);
 
-		// +(void)navigateToURL:(NSURL * _Nonnull)destination handler:(FBSDKAppLinkNavigationBlockHandler _Nonnull)handler;
+		// +(void)navigateToURL:(NSURL * _Nonnull)destination handler:(FBSDKAppLinkNavigationBlock _Nonnull)handler;
 		[Async]
 		[Static]
 		[Export ("navigateToURL:handler:")]
 		void Navigate (NSUrl destination, AppLinkNavigationBlockHandler handler);
 
-		// +(void)navigateToURL:(NSURL * _Nonnull)destination resolver:(id<FBSDKAppLinkResolving> _Nonnull)resolver handler:(FBSDKAppLinkNavigationBlockHandler _Nonnull)handler;
+		// +(void)navigateToURL:(NSURL * _Nonnull)destination resolver:(id<FBSDKAppLinkResolving> _Nonnull)resolver handler:(FBSDKAppLinkNavigationBlock _Nonnull)handler;
 		[Async]
 		[Static]
 		[Export ("navigateToURL:resolver:handler:")]
@@ -495,15 +441,10 @@ namespace Facebook.CoreKit {
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKAppLinkResolver")]
 	interface AppLinkResolver : AppLinkResolving {
-		// -(void)appLinksFromURLs:(NSArray<NSURL *> *)urls handler:(FBSDKAppLinksFromURLArrayHandler)handler __attribute__((availability(ios_app_extension, unavailable)));
+		// -(void)appLinksFrom:(NSArray<NSURL *> * _Nonnull)urls handler:(FBSDKAppLinksBlock _Nonnull)handler __attribute__((availability(ios_app_extension, unavailable)));
 		[Async]
-		[Export ("appLinksFromURLs:handler:")]
+		[Export ("appLinksFrom:handler:")]
 		void GetAppLinks (NSUrl [] urls, AppLinksBlockHandler handler);
-
-		// + (instancetype)resolver;
-		[Static]
-		[Export ("resolver")]
-		AppLinkResolver Resolver { get; }
 	}
 
 	// typedef void (^FBSDKAppLinkBlock)(FBSDKAppLink * _Nullable, NSError * _Nullable);
@@ -520,7 +461,7 @@ namespace Facebook.CoreKit {
 	[Protocol]
 	[BaseType (typeof (NSObject), Name = "FBSDKAppLinkResolving")]
 	interface AppLinkResolving {
-		// @required -(void)appLinkFromURL:(NSURL * _Nonnull)url handler:(FBSDKAppLinkBlockHandler _Nonnull)handler __attribute__((availability(ios_app_extension, unavailable)));
+		// @required -(void)appLinkFromURL:(NSURL * _Nonnull)url handler:(FBSDKAppLinkBlock _Nonnull)handler __attribute__((availability(ios_app_extension, unavailable)));
 		[Abstract]
 		[Export ("appLinkFromURL:handler:")]
 		void Handler (NSUrl url, AppLinkBlockHandler handler);
@@ -532,7 +473,7 @@ namespace Facebook.CoreKit {
 	[Protocol (Name = "FBSDKAppLinkTarget")]
 	interface AppLinkTargetProtocol
 	{
-		// @required +(instancetype _Nonnull)appLinkTargetWithURL:(NSURL * _Nullable __strong)url appStoreId:(NSString * _Nullable __strong)appStoreId appName:(NSString * _Nonnull __strong)appName __attribute__((swift_name("init(url:appStoreId:appName:)")));
+		// @required +(instancetype _Nonnull)appLinkTargetWithURL:(NSURL * _Nullable)url appStoreId:(NSString * _Nullable)appStoreId appName:(NSString * _Nonnull)appName __attribute__((swift_name("init(url:appStoreId:appName:)")));
 		[Static, Abstract]
 		[Export ("appLinkTargetWithURL:appStoreId:appName:")]
 		IAppLinkTargetProtocol Create ([NullAllowed] NSUrl url, [NullAllowed] string appStoreId, string appName);
@@ -557,20 +498,15 @@ namespace Facebook.CoreKit {
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKAppLinkTarget")]
 	interface AppLinkTarget : AppLinkTargetProtocol {
-		// +(instancetype _Nonnull)appLinkTargetWithURL:(NSURL * _Nonnull)url appStoreId:(NSString * _Nullable)appStoreId appName:(NSString * _Nonnull)appName;
-		[Static]
-		[Export ("appLinkTargetWithURL:appStoreId:appName:")]
-		AppLinkTarget Create ([NullAllowed] NSUrl url, [NullAllowed] string appStoreId, string appName);
+		// -(instancetype _Nonnull)initWithURL:(NSURL * _Nullable)url appStoreId:(NSString * _Nullable)appStoreId appName:(NSString * _Nonnull)appName __attribute__((objc_designated_initializer));
+		[DesignatedInitializer]
+		[Export ("initWithURL:appStoreId:appName:")]
+		NativeHandle Constructor ([NullAllowed] NSUrl url, [NullAllowed] string appStoreId, string appName);
 
-		// @property (readonly, nonatomic, strong) NSURL * _Nonnull URL;
+		// @property (readonly, copy, nonatomic) NSURL * _Nullable URL;
 		[NullAllowed]
 		[Export ("URL", ArgumentSemantic.Strong)]
 		NSUrl Url { get; }
-
-		[Obsolete ("Use Url property instead. This will be removed in future versions.")]
-		[NullAllowed]
-		[Wrap ("Url")]
-		NSUrl URL { get; }
 
 		// @property (readonly, copy, nonatomic) NSString * _Nullable appStoreId;
 		[NullAllowed]
@@ -583,20 +519,20 @@ namespace Facebook.CoreKit {
 	}
 
 	// typedef void (^FBSDKURLBlock)(NSURL * _Nullable, NSError * _Nullable);
-	delegate void UrlBlockHandler (NSUrl url, NSError error);
+	delegate void UrlBlockHandler ([NullAllowed] NSUrl url, [NullAllowed] NSError error);
 
 	// @interface FBSDKAppLinkUtility : NSObject
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKAppLinkUtility")]
 	interface AppLinkUtility {
 
-		// +(void)fetchDeferredAppLink:(FBSDKUrlBlockHandler)handler;
+		// +(void)fetchDeferredAppLink:(FBSDKURLBlock _Nullable)handler;
 		[Static]
 		[Async]
 		[Export ("fetchDeferredAppLink:")]
 		void FetchDeferredAppLink (UrlBlockHandler handler);
 
-		// + (NSString*)appInvitePromotionCodeFromURL:(NSURL*)url;
+		// +(NSString * _Nullable)appInvitePromotionCodeFromURL:(NSURL * _Nonnull)url;
 		[Static]
 		[Export ("appInvitePromotionCodeFromURL:")]
 		string AppInvitePromotionCode (NSUrl url);
@@ -611,64 +547,61 @@ namespace Facebook.CoreKit {
 	[BaseType (typeof(UIButton), Name = "FBSDKImpressionLoggingButton")]
 	interface ImpressionLoggingButton { }
 
-	// @interface FBSDKButton : UIButton
+	// @interface FBSDKButton : FBSDKImpressionLoggingButton
 	[BaseType (typeof (ImpressionLoggingButton), Name = "FBSDKButton")]
 	interface Button {
-
-		[Export ("initWithFrame:")]
-		NativeHandle Constructor (CGRect frame);
 	}
 
 	[Static]
 	interface Errors {
-		// extern NSString *const FBSDKErrorDomain;
+		// extern NS_SWIFT_NAME(ErrorDomain) const NSErrorDomain FBSDKErrorDomain __attribute__((swift_name("ErrorDomain")));
 		[Field ("FBSDKErrorDomain", "__Internal")]
 		NSString DomainKey { get; }
 
-		// extern NSString *const FBSDKErrorArgumentCollectionKey;
+		// extern NS_SWIFT_NAME(ErrorArgumentCollectionKey) const NSErrorUserInfoKey FBSDKErrorArgumentCollectionKey __attribute__((swift_name("ErrorArgumentCollectionKey")));
 		[Field ("FBSDKErrorArgumentCollectionKey", "__Internal")]
 		NSString ArgumentCollectionKey { get; }
 
-		// extern NSString *const FBSDKErrorArgumentNameKey;
+		// extern NS_SWIFT_NAME(ErrorArgumentNameKey) const NSErrorUserInfoKey FBSDKErrorArgumentNameKey __attribute__((swift_name("ErrorArgumentNameKey")));
 		[Field ("FBSDKErrorArgumentNameKey", "__Internal")]
 		NSString ArgumentNameKey { get; }
 
-		// extern NSString *const FBSDKErrorArgumentValueKey;
+		// extern NS_SWIFT_NAME(ErrorArgumentValueKey) const NSErrorUserInfoKey FBSDKErrorArgumentValueKey __attribute__((swift_name("ErrorArgumentValueKey")));
 		[Field ("FBSDKErrorArgumentValueKey", "__Internal")]
 		NSString ArgumentValueKey { get; }
 
-		// extern NSString *const FBSDKErrorDeveloperMessageKey;
+		// extern NS_SWIFT_NAME(ErrorDeveloperMessageKey) const NSErrorUserInfoKey FBSDKErrorDeveloperMessageKey __attribute__((swift_name("ErrorDeveloperMessageKey")));
 		[Field ("FBSDKErrorDeveloperMessageKey", "__Internal")]
 		NSString DeveloperMessageKey { get; }
 
-		// extern NSString *const FBSDKErrorLocalizedDescriptionKey;
+		// extern NS_SWIFT_NAME(ErrorLocalizedDescriptionKey) const NSErrorUserInfoKey FBSDKErrorLocalizedDescriptionKey __attribute__((swift_name("ErrorLocalizedDescriptionKey")));
 		[Field ("FBSDKErrorLocalizedDescriptionKey", "__Internal")]
 		NSString LocalizedDescriptionKey { get; }
 
-		// extern NSString *const FBSDKErrorLocalizedTitleKey;
+		// extern NS_SWIFT_NAME(ErrorLocalizedTitleKey) const NSErrorUserInfoKey FBSDKErrorLocalizedTitleKey __attribute__((swift_name("ErrorLocalizedTitleKey")));
 		[Field ("FBSDKErrorLocalizedTitleKey", "__Internal")]
 		NSString LocalizedTitleKey { get; }
 	}
 
 	[Static]
 	interface GraphRequestErrors {
-		// extern const NSErrorUserInfoKey FBSDKGraphRequestErrorKey;
+		// extern NS_SWIFT_NAME(GraphRequestErrorKey) const NSErrorUserInfoKey FBSDKGraphRequestErrorKey __attribute__((swift_name("GraphRequestErrorKey")));
 		[Field ("FBSDKGraphRequestErrorKey", "__Internal")]
 		NSString ErrorKey { get; }
 
-		// extern const NSErrorUserInfoKey FBSDKGraphRequestErrorGraphErrorCodeKey;
+		// extern NS_SWIFT_NAME(GraphRequestErrorGraphErrorCodeKey) const NSErrorUserInfoKey FBSDKGraphRequestErrorGraphErrorCodeKey __attribute__((swift_name("GraphRequestErrorGraphErrorCodeKey")));
 		[Field ("FBSDKGraphRequestErrorGraphErrorCodeKey", "__Internal")]
 		NSString GraphErrorCodeKey { get; }
 
-		// extern const NSErrorUserInfoKey FBSDKGraphRequestErrorGraphErrorSubcodeKey;
+		// extern NS_SWIFT_NAME(GraphRequestErrorGraphErrorSubcodeKey) const NSErrorUserInfoKey FBSDKGraphRequestErrorGraphErrorSubcodeKey __attribute__((swift_name("GraphRequestErrorGraphErrorSubcodeKey")));
 		[Field ("FBSDKGraphRequestErrorGraphErrorSubcodeKey", "__Internal")]
 		NSString GraphErrorSubcodeKey { get; }
 
-		// extern const NSErrorUserInfoKey FBSDKGraphRequestErrorHTTPStatusCodeKey;
+		// extern NS_SWIFT_NAME(GraphRequestErrorHTTPStatusCodeKey) const NSErrorUserInfoKey FBSDKGraphRequestErrorHTTPStatusCodeKey __attribute__((swift_name("GraphRequestErrorHTTPStatusCodeKey")));
 		[Field ("FBSDKGraphRequestErrorHTTPStatusCodeKey", "__Internal")]
 		NSString HttpStatusCodeKey { get; }
 
-		// extern const NSErrorUserInfoKey FBSDKGraphRequestErrorParsedJSONResponseKey;
+		// extern NS_SWIFT_NAME(GraphRequestErrorParsedJSONResponseKey) const NSErrorUserInfoKey FBSDKGraphRequestErrorParsedJSONResponseKey __attribute__((swift_name("GraphRequestErrorParsedJSONResponseKey")));
 		[Field ("FBSDKGraphRequestErrorParsedJSONResponseKey", "__Internal")]
 		NSString ParsedJsonResponseKey { get; }
 	}
@@ -693,10 +626,10 @@ namespace Facebook.CoreKit {
 	[Protocol]
 	[BaseType (typeof (NSObject), Name = "FBSDKErrorRecoveryAttempting")]
 	interface ErrorRecoveryAttempting {
-		// @required -(void)attemptRecoveryFromError:(NSError *)error optionIndex:(NSUInteger)recoveryOptionIndex delegate:(id)delegate didRecoverSelector:(SEL)didRecoverSelector contextInfo:(void *)contextInfo;
+		// @required -(void)attemptRecoveryFromError:(NSError * _Nonnull)error completionHandler:(void (^ _Nonnull)(BOOL))completionHandler __attribute__((swift_name("attemptRecovery(from:completion:)")));
 		[Abstract]
-		[Export ("attemptRecoveryFromError:optionIndex:delegate:didRecoverSelector:contextInfo:")]
-		void AttemptRecovery (NSError error, nuint recoveryOptionIndex, [NullAllowed] NSObject aDelegate, Selector didRecoverSelector, IntPtr contextInfo);
+		[Export ("attemptRecoveryFromError:completionHandler:")]
+		void AttemptRecovery (NSError error, Action<bool> completionHandler);
 	}
 
 	interface IGraphErrorRecoveryProcessorDelegate { }
@@ -711,12 +644,12 @@ namespace Facebook.CoreKit {
 	[BaseType (typeof (NSObject), Name = "FBSDKGraphErrorRecoveryProcessorDelegate")]
 	interface GraphErrorRecoveryProcessorDelegate {
 
-		// @required -(void)processorDidAttemptRecovery:(FBSDKGraphErrorRecoveryProcessor *)processor didRecover:(BOOL)didRecover error:(NSError *)error;
+		// @required -(void)processorDidAttemptRecovery:(FBSDKGraphErrorRecoveryProcessor * _Nonnull)processor didRecover:(BOOL)didRecover error:(NSError * _Nullable)error;
 		[Abstract]
 		[Export ("processorDidAttemptRecovery:didRecover:error:")]
 		void DidAttemptRecovery (GraphErrorRecoveryProcessor processor, bool didRecover, [NullAllowed] NSError error);
 
-		// @optional -(BOOL)processorWillProcessError:(FBSDKGraphErrorRecoveryProcessor *)processor error:(NSError *)error;
+		// @optional -(BOOL)processorWillProcessError:(FBSDKGraphErrorRecoveryProcessor * _Nonnull)processor error:(NSError * _Nullable)error;
 		[Export ("processorWillProcessError:error:")]
 		bool WillProcessError (GraphErrorRecoveryProcessor processor, [NullAllowed] NSError error);
 	}
@@ -725,12 +658,11 @@ namespace Facebook.CoreKit {
 	[BaseType (typeof (NSObject), Name = "FBSDKGraphErrorRecoveryProcessor")]
 	interface GraphErrorRecoveryProcessor {
 
-		// @property (readonly, nonatomic, strong) id<FBSDKGraphErrorRecoveryProcessorDelegate> delegate;
-		[NullAllowed]
-		[Export ("delegate", ArgumentSemantic.Strong)]
-		IGraphErrorRecoveryProcessorDelegate Delegate { get; }
+		// -(instancetype _Nonnull)initWithAccessTokenString:(NSString * _Nonnull)accessTokenString;
+		[Export ("initWithAccessTokenString:")]
+		NativeHandle Constructor (string accessTokenString);
 
-		// -(BOOL)processError:(NSError *)error request:(FBSDKGraphRequest *)request delegate:(id<FBSDKGraphErrorRecoveryProcessorDelegate>)delegate;
+		// -(BOOL)processError:(NSError * _Nonnull)error request:(id<FBSDKGraphRequest> _Nonnull)request delegate:(id<FBSDKGraphErrorRecoveryProcessorDelegate> _Nullable)delegate;
 		[Export ("processError:request:delegate:")]
 		bool ProcessError (NSError error, GraphRequest request, [NullAllowed] IGraphErrorRecoveryProcessorDelegate aDelegate);
 	}
@@ -781,7 +713,7 @@ namespace Facebook.CoreKit {
 		[Export ("hasAttachments")]
 		bool HasAttachments ();
 
-		// @required -(id<FBSDKGraphRequestConnecting> _Nonnull)startWithCompletion:(FBSDKGraphRequestCompletion  _Nullable __strong)completion;
+		// @required -(id<FBSDKGraphRequestConnecting> _Nonnull)startWithCompletion:(FBSDKGraphRequestCompletion _Nullable)completion;
 		[Abstract]
 		[Export ("startWithCompletion:")]
 		IGraphRequestConnecting Start ([NullAllowed] GraphRequestCompletionHandler completion);
@@ -814,7 +746,7 @@ namespace Facebook.CoreKit {
 		[Export ("initWithGraphPath:parameters:")]
 		NativeHandle Constructor (string graphPath, [NullAllowed] NSDictionary parameters);
 
-		// -(instancetype)initWithGraphPath:(NSString *)graphPath parameters:(NSDictionary *)parameters HTTPMethod:(NSString *)HTTPMethod;
+		// -(instancetype _Nonnull)initWithGraphPath:(NSString * _Nonnull)graphPath parameters:(NSDictionary<NSString *,id> * _Nonnull)parameters HTTPMethod:(FBSDKHTTPMethod _Nonnull)method;
 		[Internal]
 		[Export ("initWithGraphPath:parameters:HTTPMethod:")]
 		NativeHandle Constructor (string graphPath, [NullAllowed] NSDictionary parameters, NSString method);
@@ -825,7 +757,7 @@ namespace Facebook.CoreKit {
 		[Wrap ("this (graphPath, parameters, new NSString (method))")]
 		NativeHandle Constructor (string graphPath, [NullAllowed] NSDictionary parameters, string method);
 
-		// -(instancetype)initWithGraphPath:(NSString *)graphPath parameters:(NSDictionary *)parameters tokenString:(NSString *)tokenString version:(NSString *)version HTTPMethod:(NSString *)HTTPMethod __attribute__((objc_designated_initializer));
+		// -(instancetype _Nonnull)initWithGraphPath:(NSString * _Nonnull)graphPath parameters:(NSDictionary<NSString *,id> * _Nonnull)parameters tokenString:(NSString * _Nullable)tokenString version:(NSString * _Nullable)version HTTPMethod:(FBSDKHTTPMethod _Nonnull)method;
 		[DesignatedInitializer]
 		[Internal]
 		[Export ("initWithGraphPath:parameters:tokenString:version:HTTPMethod:")]
@@ -837,38 +769,38 @@ namespace Facebook.CoreKit {
 		[Wrap ("this (graphPath, parameters, tokenString, version, new NSString (method))")]
 		NativeHandle Constructor (string graphPath, [NullAllowed] NSDictionary parameters, [NullAllowed] string tokenString, [NullAllowed] string version, string method);
 
-		// @property (readonly, nonatomic, strong) NSMutableDictionary * parameters;
+		// @property (copy, nonatomic) NSDictionary<NSString *,id> * _Nonnull parameters;
 		[Export ("parameters", ArgumentSemantic.Copy)]
 		NSDictionary<NSString, NSObject> Parameters { get; set; }
 
-		// @property (readonly, copy, nonatomic) NSString * tokenString;
+		// @property (readonly, copy, nonatomic) NSString * _Nullable tokenString;
 		[NullAllowed]
-		[Export ("tokenString", ArgumentSemantic.Copy)]
+		[Export ("tokenString")]
 		string TokenString { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * graphPath;
-		[Export ("graphPath", ArgumentSemantic.Copy)]
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull graphPath;
+		[Export ("graphPath")]
 		string GraphPath { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * HTTPMethod;
+		// @property (readonly, copy, nonatomic) FBSDKHTTPMethod _Nonnull HTTPMethod;
 		[BindAs (typeof (HttpMethod))]
-		[Export ("HTTPMethod", ArgumentSemantic.Copy)]
+		[Export ("HTTPMethod")]
 		NSString HttpMethod { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * version;
-		[Export ("version", ArgumentSemantic.Copy)]
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull version;
+		[Export ("version")]
 		string Version { get; }
 
-		// -(void)setGraphErrorRecoveryDisabled:(BOOL)disable;
+		// -(void)setGraphErrorRecoveryDisabled:(BOOL)disable __attribute__((swift_name("setGraphErrorRecovery(disabled:)")));
 		[Export ("setGraphErrorRecoveryDisabled:")]
 		void SetGraphErrorRecoveryDisabled (bool disable);
 
-		// @required -(id<FBSDKGraphRequestConnecting> _Nonnull)startWithCompletion:(FBSDKGraphRequestCompletion  _Nullable __strong)completion;
+		// -(id<FBSDKGraphRequestConnecting> _Nonnull)startWithCompletion:(FBSDKGraphRequestCompletion _Nullable)completion;
 		[Export ("startWithCompletion:")]
 		IGraphRequestConnecting Start ([NullAllowed] GraphRequestCompletionHandler handler);
 	}
 
-	// typedef void (^FBSDKGraphRequestCompletion)(id<FBSDKGraphRequestConnecting>  _Nullable __strong, id  _Nullable __strong, NSError * _Nullable __strong);
+	// typedef void (^FBSDKGraphRequestCompletion)(id<FBSDKGraphRequestConnecting> _Nullable, id _Nullable, NSError * _Nullable);
 	delegate void GraphRequestCompletionHandler([NullAllowed] IGraphRequestConnecting connection, [NullAllowed] NSObject result, [NullAllowed] NSError error);
 
 	interface IGraphRequestConnecting { }
@@ -886,7 +818,7 @@ namespace Facebook.CoreKit {
 		[NullAllowed, Export ("delegate", ArgumentSemantic.Weak)]
 		IGraphRequestConnectionDelegate Delegate { get; set; }
 		
-		// @required -(void)addRequest:(id<FBSDKGraphRequest>  _Nonnull __strong)request completion:(FBSDKGraphRequestCompletion  _Nonnull __strong)handler;
+		// @required -(void)addRequest:(id<FBSDKGraphRequest> _Nonnull)request completion:(FBSDKGraphRequestCompletion _Nonnull)handler;
 		[Abstract]
 		[Export ("addRequest:completion:")]
 		void AddRequest (IGraphRequestProtocol request, GraphRequestCompletionHandler handler);
@@ -914,19 +846,19 @@ namespace Facebook.CoreKit {
 	[BaseType (typeof (NSObject), Name = "FBSDKGraphRequestConnectionDelegate")]
 	interface GraphRequestConnectionDelegate {
 
-		// @optional -(void)requestConnectionWillBeginLoading:(id<FBSDKGraphRequestConnecting>  _Nonnull __strong)connection;
+		// @optional -(void)requestConnectionWillBeginLoading:(id<FBSDKGraphRequestConnecting> _Nonnull)connection;
 		[Export ("requestConnectionWillBeginLoading:")]
 		void WillBeginLoading (IGraphRequestConnecting connection);
 
-		// @optional -(void)requestConnectionDidFinishLoading:(id<FBSDKGraphRequestConnecting>  _Nonnull __strong)connection;
+		// @optional -(void)requestConnectionDidFinishLoading:(id<FBSDKGraphRequestConnecting> _Nonnull)connection;
 		[Export ("requestConnectionDidFinishLoading:")]
 		void DidFinishLoading (IGraphRequestConnecting connection);
 
-		// @optional -(void)requestConnection:(id<FBSDKGraphRequestConnecting>  _Nonnull __strong)connection didFailWithError:(NSError * _Nonnull __strong)error;
+		// @optional -(void)requestConnection:(id<FBSDKGraphRequestConnecting> _Nonnull)connection didFailWithError:(NSError * _Nonnull)error;
 		[Export ("requestConnection:didFailWithError:")]
 		void DidFail (IGraphRequestConnecting connection, NSError error);
 
-		// @optional -(void)requestConnection:(id<FBSDKGraphRequestConnecting>  _Nonnull __strong)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
+		// @optional -(void)requestConnection:(id<FBSDKGraphRequestConnecting> _Nonnull)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
 		[Export ("requestConnection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:")]
 		void DidSendBodyData (IGraphRequestConnecting connection, nint bytesWritten, nint totalBytesWritten, nint totalBytesExpectedToWrite);
 	}
@@ -935,7 +867,7 @@ namespace Facebook.CoreKit {
 	[BaseType (typeof (NSObject), Name = "FBSDKGraphRequestConnection")]
 	interface GraphRequestConnection : GraphRequestConnecting {
 
-		// extern NSString *const FBSDKNonJSONResponseProperty;
+		// extern NS_SWIFT_NAME(NonJSONResponseProperty) NSString *const FBSDKNonJSONResponseProperty __attribute__((swift_name("NonJSONResponseProperty")));
 		[Field ("FBSDKNonJSONResponseProperty", "__Internal")]
 		NSString NonJsonResponsePropertyKey { get; }
 
@@ -944,7 +876,7 @@ namespace Facebook.CoreKit {
 		[Export ("defaultConnectionTimeout")]
 		double DefaultConnectionTimeout { get; set; }
 
-		// @property (assign, nonatomic) id<FBSDKGraphRequestConnectionDelegate> delegate;
+		// @property (nonatomic, weak) id<FBSDKGraphRequestConnectionDelegate> _Nullable delegate;
 		[NullAllowed]
 		[Export ("delegate", ArgumentSemantic.Weak)]
 		IGraphRequestConnectionDelegate Delegate { get; set; }
@@ -953,29 +885,19 @@ namespace Facebook.CoreKit {
 		[Export ("timeout", ArgumentSemantic.Assign)]
 		double Timeout { get; set; }
 
-		// @property (readonly, retain, nonatomic) NSHTTPURLResponse * URLResponse;
+		// @property (readonly, retain, nonatomic) NSHTTPURLResponse * _Nullable urlResponse;
 		[NullAllowed]
 		[Export ("URLResponse", ArgumentSemantic.Retain)]
 		NSHttpUrlResponse UrlResponse { get; }
 
-		// @property (retain, nonatomic) NSOperationQueue * _Nonnull delegateQueue;
+		// @property (nonatomic) NSOperationQueue * _Nullable delegateQueue;
 		[Export ("delegateQueue", ArgumentSemantic.Retain)]
 		NSOperationQueue DelegateQueue { get; set; }
 
-		// -(void)addRequest:(id<FBSDKGraphRequest>  _Nonnull __strong)request completion:(FBSDKGraphRequestCompletion  _Nonnull __strong)completion;
+		// -(void)addRequest:(id<FBSDKGraphRequest> _Nonnull)request completion:(FBSDKGraphRequestCompletion _Nonnull)completion;
 		[Async (ResultTypeName = "GraphRequestResult")]
 		[Export ("addRequest:completion:")]
 		void AddRequest (IGraphRequestProtocol request, GraphRequestCompletionHandler handler);
-
-		// -(void)addRequest:(id<FBSDKGraphRequest>  _Nonnull __strong)request name:(NSString * _Nonnull __strong)name completion:(FBSDKGraphRequestCompletion  _Nonnull __strong)completion;
-		[Async (ResultTypeName = "GraphRequestResult")]
-		[Export ("addRequest:batchEntryName:completionHandler:")]
-		void AddRequest (IGraphRequestProtocol request, string name, GraphRequestCompletionHandler handler);
-
-		// -(void)addRequest:(id<FBSDKGraphRequest>  _Nonnull __strong)request parameters:(NSDictionary<NSString *,id> * _Nullable __strong)parameters completion:(FBSDKGraphRequestCompletion  _Nonnull __strong)completion;
-		[Async (ResultTypeName = "GraphRequestResult")]
-		[Export ("addRequest:batchParameters:completionHandler:")]
-		void AddRequest (IGraphRequestProtocol request, [NullAllowed] NSDictionary batchParameters, GraphRequestCompletionHandler handler);
 
 		// -(void)cancel;
 		[Export ("cancel")]
@@ -985,7 +907,7 @@ namespace Facebook.CoreKit {
 		[Export ("start")]
 		void Start ();
 
-		// -(void)overrideGraphAPIVersion:(NSString *)version;
+		// -(void)overrideGraphAPIVersion:(NSString * _Nonnull)version;
 		[Export ("overrideGraphAPIVersion:")]
 		void OverrideGraphApiVersion (string version);
 	}
@@ -994,35 +916,37 @@ namespace Facebook.CoreKit {
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKGraphRequestDataAttachment")]
 	interface GraphRequestDataAttachment {
-		// -(instancetype)initWithData:(NSData *)data filename:(NSString *)filename contentType:(NSString *)contentType __attribute__((objc_designated_initializer));
+		// -(instancetype _Nonnull)initWithData:(NSData * _Nonnull)data filename:(NSString * _Nonnull)filename contentType:(NSString * _Nonnull)contentType __attribute__((objc_designated_initializer));
 		[DesignatedInitializer]
 		[Export ("initWithData:filename:contentType:")]
 		NativeHandle Constructor ([NullAllowed] NSData data, string filename, string contentType);
 
-		// @property (readonly, copy, nonatomic) NSString * contentType;
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull contentType;
 		[Export ("contentType", ArgumentSemantic.Copy)]
 		string ContentType { get; }
 
-		// @property (readonly, nonatomic, strong) NSData * data;
+		// @property (readonly, nonatomic, strong) NSData * _Nonnull data;
 		[Export ("data", ArgumentSemantic.Strong)]
 		NSData Data { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * filename;
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull filename;
 		[Export ("filename", ArgumentSemantic.Copy)]
 		string Filename { get; }
 	}
-
-	interface MeasurementEventArgs {
-		[Export ("FBSDKMeasurementEventNameKey")]
-		string EventName { get; }
-
-		[Export ("FBSDKMeasurementEventArgsKey")]
-		NSDictionary EventArgs { get; }
+	
+	// @protocol FBSDKAppLinkEventPosting
+	[Protocol (Name = "FBSDKAppLinkEventPosting")]
+	interface AppLinkEventPosting
+	{
+		// @required -(void)postNotificationForEventName:(NSString * _Nonnull)name args:(NSDictionary<NSString *,id> * _Nonnull)args __attribute__((swift_name("postNotification(eventName:arguments:)")));
+		[Abstract]
+		[Export ("postNotificationForEventName:args:")]
+		void PostNotification (string eventName, NSDictionary<NSString, NSObject> args);
 	}
 
-	// @interface FBSDKMeasurementEvent : NSObject
+	// @interface FBSDKMeasurementEvent : NSObject <FBSDKAppLinkEventPosting>
 	[BaseType (typeof (NSObject), Name = "FBSDKMeasurementEvent")]
-	interface MeasurementEvent { }
+	interface MeasurementEvent : AppLinkEventPosting { }
 
 	interface IMutableCopying { }
 
@@ -1036,7 +960,7 @@ namespace Facebook.CoreKit {
 	[BaseType (typeof (NSObject), Name = "FBSDKMutableCopying")]
 	interface MutableCopying : INSCopying, INSMutableCopying {
 
-		// @required -(id)mutableCopy;
+		// @required -(id _Nonnull)mutableCopy;
 		[New]
 		[Abstract]
 		[Export ("mutableCopy")]
@@ -1044,9 +968,11 @@ namespace Facebook.CoreKit {
 	}
 
 	interface ProfileDidChangeEventArgs {
+		// extern NS_SWIFT_NAME(ProfileChangeOldKey) NSString *const FBSDKProfileChangeOldKey __attribute__((swift_name("ProfileChangeOldKey")));
 		[Export ("FBSDKProfileChangeOldKey")]
 		Profile OldProfile { get; }
 
+		// extern NS_SWIFT_NAME(ProfileChangeNewKey) NSString *const FBSDKProfileChangeNewKey __attribute__((swift_name("ProfileChangeNewKey")));
 		[Export ("FBSDKProfileChangeNewKey")]
 		Profile NewProfile { get; }
 	}
@@ -1054,96 +980,133 @@ namespace Facebook.CoreKit {
 	// typedef void (^FBSDKProfileBlock)(FBSDKProfile * _Nullable, NSError * _Nullable);
 	delegate void ProfileBlockHandler ([NullAllowed] Profile profile, [NullAllowed] NSError error);
 
-	// @interface FBSDKProfile : NSObject <NSCopying, NSSecureCoding>
+	// @interface FBSDKLocation : NSObject <NSCopying, NSObject, NSSecureCoding>
+	[DisableDefaultCtor]
+	[BaseType (typeof(NSObject), Name = "FBSDKLocation")]
+	interface Location : INSCopying, INSSecureCoding
+	{
+		// @property (readonly, nonatomic, strong) NSString * _Nonnull id;
+		[Export ("id", ArgumentSemantic.Strong)]
+		string Id { get; }
+
+		// @property (readonly, nonatomic, strong) NSString * _Nonnull name;
+		[Export ("name", ArgumentSemantic.Strong)]
+		string Name { get; }
+
+		// +(instancetype _Nullable)locationFromDictionary:(NSDictionary<NSString *,NSString *> * _Nonnull)dictionary;
+		[Static]
+		[Export ("locationFromDictionary:")]
+		[return: NullAllowed]
+		Location LocationFromDictionary (NSDictionary<NSString, NSString> dictionary);
+	}
+
+	// @interface FBSDKUserAgeRange : NSObject <NSCopying, NSObject, NSSecureCoding>
+	[DisableDefaultCtor]
+	[BaseType (typeof(NSObject), Name = "FBSDKUserAgeRange")]
+	interface UserAgeRange : INSCopying, INSSecureCoding
+	{
+		// @property (readonly, nonatomic, strong) NSNumber * _Nullable min;
+		[NullAllowed, Export ("min", ArgumentSemantic.Strong)]
+		NSNumber Min { get; }
+
+		// @property (readonly, nonatomic, strong) NSNumber * _Nullable max;
+		[NullAllowed, Export ("max", ArgumentSemantic.Strong)]
+		NSNumber Max { get; }
+
+		// +(instancetype _Nullable)ageRangeFromDictionary:(NSDictionary<NSString *,NSNumber *> * _Nonnull)dictionary;
+		[Static]
+		[Export ("ageRangeFromDictionary:")]
+		[return: NullAllowed]
+		UserAgeRange AgeRangeFromDictionary (NSDictionary<NSString, NSNumber> dictionary);
+	}
+
+	// @interface FBSDKProfile : NSObject
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKProfile")]
 	interface Profile : INSCopying, INSSecureCoding {
 
-		// extern NSString *const FBSDKProfileDidChangeNotification;
+		// extern NS_SWIFT_NAME(ProfileDidChange) const NSNotificationName FBSDKProfileDidChangeNotification __attribute__((swift_name("ProfileDidChange")));
 		[Notification (typeof (ProfileDidChangeEventArgs))]
 		[Field ("FBSDKProfileDidChangeNotification", "__Internal")]
 		NSString DidChangeNotification { get; }
 
+		// extern NS_SWIFT_NAME(ProfileChangeOldKey) NSString *const FBSDKProfileChangeOldKey __attribute__((swift_name("ProfileChangeOldKey")));
 		[Field ("FBSDKProfileChangeOldKey", "__Internal")]
 		NSString OldProfileKey { get; }
 
+		// extern NS_SWIFT_NAME(ProfileChangeNewKey) NSString *const FBSDKProfileChangeNewKey __attribute__((swift_name("ProfileChangeNewKey")));
 		[Field ("FBSDKProfileChangeNewKey", "__Internal")]
 		NSString NewProfileKey { get; }
 
-		// -(instancetype)initWithUserID:(NSString *)userID firstName:(NSString *)firstName middleName:(NSString *)middleName lastName:(NSString *)lastName name:(NSString *)name linkURL:(NSURL *)linkURL refreshDate:(NSDate *)refreshDate __attribute__((objc_designated_initializer));
-		[Export ("initWithUserID:firstName:middleName:lastName:name:linkURL:refreshDate:")]
-		NativeHandle Constructor (string userId, [NullAllowed] string firstName,[NullAllowed] string middleName,[NullAllowed] string lastName,[NullAllowed] string name, [NullAllowed] NSUrl linkUrl, [NullAllowed] NSDate refreshDate);
+		// -(instancetype _Nonnull)initWithUserID:(FBSDKUserIdentifier _Nonnull)userID firstName:(NSString * _Nullable)firstName middleName:(NSString * _Nullable)middleName lastName:(NSString * _Nullable)lastName name:(NSString * _Nullable)name linkURL:(NSURL * _Nullable)linkURL refreshDate:(NSDate * _Nullable)refreshDate permissions:(NSSet<NSString *> * _Nullable)permissions;
+		[Export ("initWithUserID:firstName:middleName:lastName:name:linkURL:refreshDate:permissions:")]
+		NativeHandle Constructor (string userId, [NullAllowed] string firstName, [NullAllowed] string middleName, [NullAllowed] string lastName, [NullAllowed] string name, [NullAllowed] NSUrl linkURL, [NullAllowed] NSDate refreshDate, [NullAllowed] NSSet<NSString> permissions);
 
-		[Export ("initWithUserID:firstName:middleName:lastName:name:linkURL:refreshDate:imageURL:email:")]
+		// -(instancetype _Nonnull)initWithUserID:(FBSDKUserIdentifier _Nonnull)userID firstName:(NSString * _Nullable)firstName middleName:(NSString * _Nullable)middleName lastName:(NSString * _Nullable)lastName name:(NSString * _Nullable)name linkURL:(NSURL * _Nullable)linkURL refreshDate:(NSDate * _Nullable)refreshDate imageURL:(NSURL * _Nullable)imageURL email:(NSString * _Nullable)email friendIDs:(NSArray<NSString *> * _Nullable)friendIDs birthday:(NSDate * _Nullable)birthday ageRange:(FBSDKUserAgeRange * _Nullable)ageRange hometown:(FBSDKLocation * _Nullable)hometown location:(FBSDKLocation * _Nullable)location gender:(NSString * _Nullable)gender permissions:(NSSet<NSString *> * _Nullable)permissions;
+		[Export ("initWithUserID:firstName:middleName:lastName:name:linkURL:refreshDate:imageURL:email:friendIDs:birthday:ageRange:hometown:location:gender:permissions:")]
+		NativeHandle Constructor (string userId, [NullAllowed] string firstName, [NullAllowed] string middleName, [NullAllowed] string lastName, [NullAllowed] string name, [NullAllowed] NSUrl linkURL, [NullAllowed] NSDate refreshDate, [NullAllowed] NSUrl imageURL, [NullAllowed] string email, [NullAllowed] string[] friendIDs, [NullAllowed] NSDate birthday, [NullAllowed] UserAgeRange ageRange, [NullAllowed] Location hometown, [NullAllowed] Location location, [NullAllowed] string gender, [NullAllowed] NSSet<NSString> permissions);
+
+		// -(instancetype _Nonnull)initWithUserID:(FBSDKUserIdentifier _Nonnull)userID firstName:(NSString * _Nullable)firstName middleName:(NSString * _Nullable)middleName lastName:(NSString * _Nullable)lastName name:(NSString * _Nullable)name linkURL:(NSURL * _Nullable)linkURL refreshDate:(NSDate * _Nullable)refreshDate imageURL:(NSURL * _Nullable)imageURL email:(NSString * _Nullable)email friendIDs:(NSArray<NSString *> * _Nullable)friendIDs birthday:(NSDate * _Nullable)birthday ageRange:(FBSDKUserAgeRange * _Nullable)ageRange hometown:(FBSDKLocation * _Nullable)hometown location:(FBSDKLocation * _Nullable)location gender:(NSString * _Nullable)gender isLimited:(BOOL)isLimited permissions:(NSSet<NSString *> * _Nullable)permissions __attribute__((objc_designated_initializer));
 		[DesignatedInitializer]
-		NativeHandle Constructor (string userId, [NullAllowed] string firstName, [NullAllowed] string middleName, [NullAllowed] string lastName, [NullAllowed] string name, [NullAllowed] NSUrl linkUrl, [NullAllowed] NSDate refreshDate, [NullAllowed] NSUrl imageUrl, [NullAllowed] string email);
+		[Export ("initWithUserID:firstName:middleName:lastName:name:linkURL:refreshDate:imageURL:email:friendIDs:birthday:ageRange:hometown:location:gender:isLimited:permissions:")]
+		NativeHandle Constructor (string userId, [NullAllowed] string firstName, [NullAllowed] string middleName, [NullAllowed] string lastName, [NullAllowed] string name, [NullAllowed] NSUrl linkURL, [NullAllowed] NSDate refreshDate, [NullAllowed] NSUrl imageURL, [NullAllowed] string email, [NullAllowed] string[] friendIDs, [NullAllowed] NSDate birthday, [NullAllowed] UserAgeRange ageRange, [NullAllowed] Location hometown, [NullAllowed] Location location, [NullAllowed] string gender, bool isLimited, [NullAllowed] NSSet<NSString> permissions);
 
-		// @property (nonatomic, strong, class) FBSDKProfile * _Nullable currentProfile;
-		[Static]
-		[NullAllowed]
-		[Export ("currentProfile", ArgumentSemantic.Strong)]
-		Profile CurrentProfile { get; set; }
-
-		// @property (readonly, nonatomic) NSString * userID;
+		// @property (readonly, copy, nonatomic) FBSDKUserIdentifier _Nonnull userID;
 		[Export ("userID")]
 		string UserId { get; }
 
-		// @property (readonly, nonatomic) NSString * firstName;
+		// @property (readonly, copy, nonatomic) NSString * _Nullable firstName;
 		[NullAllowed]
 		[Export ("firstName")]
 		string FirstName { get; }
 
-		// @property (readonly, nonatomic) NSString * middleName;
+		// @property (readonly, copy, nonatomic) NSString * _Nullable middleName;
 		[NullAllowed]
 		[Export ("middleName")]
 		string MiddleName { get; }
 
-		// @property (readonly, nonatomic) NSString * lastName;
+		// @property (readonly, copy, nonatomic) NSString * _Nullable lastName;
 		[NullAllowed]
 		[Export ("lastName")]
 		string LastName { get; }
 
-		// @property (readonly, nonatomic) NSString * name;
+		// @property (readonly, copy, nonatomic) NSString * _Nullable name;
 		[NullAllowed]
 		[Export ("name")]
 		string Name { get; }
 
-		// @property (readonly, nonatomic) NSURL * linkURL;
-		[NullAllowed]
-		[Export ("linkURL")]
-		NSUrl LinkUrl { get; }
+		// @property (readonly, copy, nonatomic) NSURL * _Nullable linkURL;
+		[NullAllowed, Export ("linkURL", ArgumentSemantic.Copy)]
+		NSUrl LinkURL { get; }
 
-		// @property (readonly, nonatomic) NSDate * refreshDate;
+		// @property (readonly, copy, nonatomic) NSDate * _Nonnull refreshDate;
 		[NullAllowed]
 		[Export ("refreshDate")]
 		NSDate RefreshDate { get; }
 
-		[NullAllowed, Export ("imageURL")]
+		// @property (readonly, copy, nonatomic) NSURL * _Nullable imageURL;
+		[NullAllowed, Export ("imageURL", ArgumentSemantic.Copy)]
 		NSUrl ImageUrl { get; }
 
 		// @property (readonly, copy, nonatomic) NSString * _Nullable email;
 		[NullAllowed, Export ("email")]
 		string Email { get; }
 
-		// +(void)enableUpdatesOnAccessTokenChange:(BOOL)enable;
+		// @property (nonatomic, class) BOOL isUpdatedWithAccessTokenChange;
 		[Static]
-		[Export ("enableUpdatesOnAccessTokenChange:")]
-		void EnableUpdatesOnAccessTokenChange (bool enable);
+		[Export ("isUpdatedWithAccessTokenChange")]
+		bool UpdatedWithAccessTokenChange { get; set; }
 
-		// + (void)loadCurrentProfileWithCompletion:(void(^)(FBSDKProfile *profile, NSError *error))completion;
+		// +(void)loadCurrentProfileWithCompletion:(FBSDKProfileBlock _Nullable)completion;
 		[Async]
 		[Static]
 		[Export ("loadCurrentProfileWithCompletion:")]
 		void LoadCurrentProfile ([NullAllowed] ProfileBlockHandler completion);
 
-		// - (NSURL *)imageURLForPictureMode:(FBSDKProfilePictureMode)mode size:(CGSize)size;
+		// -(NSURL * _Nullable)imageURLForPictureMode:(enum FBSDKProfilePictureMode)pictureMode size:(CGSize)size __attribute__((warn_unused_result("")));
 		[return: NullAllowed]
 		[Export ("imageURLForPictureMode:size:")]
 		NSUrl GetImageUrl (ProfilePictureMode mode, CGSize size);
-
-		// -(BOOL)isEqualToProfile:(FBSDKProfile *)profile;
-		[Export ("isEqualToProfile:")]
-		bool Equals (Profile profile);
 	}
 
 	// @interface FBSDKProfilePictureView : UIView
@@ -1152,8 +1115,9 @@ namespace Facebook.CoreKit {
 		[Export ("initWithFrame:")]
 		NativeHandle Constructor (CGRect frame);
 
-		// -(instancetype _Nonnull)initWithFrame:(CGRect)frame profile:(FBSDKProfile * _Nullable)profile;
-		[Export ("initWithFrame:profile:")]
+		// -(instancetype _Nonnull)initWith:(CGRect)frame profile:(FBSDKProfile * _Nullable)profile __attribute__((objc_designated_initializer));
+		[Export ("initWith:profile:")]
+		[DesignatedInitializer]
 		NativeHandle Constructor (CGRect frame, [NullAllowed] Profile profile);
 
 		// -(instancetype _Nonnull)initWithProfile:(FBSDKProfile * _Nullable)profile;
@@ -1164,7 +1128,7 @@ namespace Facebook.CoreKit {
 		[Export ("pictureMode", ArgumentSemantic.Assign)]
 		ProfilePictureMode PictureMode { get; set; }
 
-		// @property (copy, nonatomic) NSString * profileID;
+		// @property (copy, nonatomic) NSString * _Nonnull profileID;
 		[Export ("profileID", ArgumentSemantic.Copy)]
 		string ProfileId { get; set; }
 
@@ -1173,130 +1137,198 @@ namespace Facebook.CoreKit {
 		void SetNeedsImageUpdate ();
 	}
 
-	// @interface FBSDKSettings : NSObject
-	[DisableDefaultCtor]
+	// @protocol FBSDKSettings
+#if NET
+    [Model]
+#else
+	[Model (AutoGeneratedName = true)]
+#endif
+	[Protocol]
 	[BaseType (typeof (NSObject), Name = "FBSDKSettings")]
-	interface Settings {
-		// @property (readonly, copy, nonatomic, class) NSString * _Nonnull sdkVersion;
-		[Static]
+	interface SettingsProtocol
+	{
+		// @required @property (readonly, copy, nonatomic) NSString * _Nonnull sdkVersion;
+		[Abstract]
 		[Export ("sdkVersion")]
 		string SdkVersion { get; }
 
-		// @property (readonly, copy, nonatomic, class) NSString * _Nonnull defaultGraphAPIVersion;
-		[Static]
-		[Export ("defaultGraphAPIVersion")]
-		string DefaultGraphApiVersion { get; }
+		// @required @property (readonly, nonatomic) BOOL isAutoLogAppEventsEnabled;
+		[Abstract]
+		[Export ("isAutoLogAppEventsEnabled")]
+		bool AutoLogAppEventsEnabled { get; }
 
-		// @property (assign, nonatomic, class) CGFloat JPEGCompressionQuality;
-		[Static]
-		[Export ("JPEGCompressionQuality")]
-		nfloat JpegCompressionQuality { get; set; }
+		// @required @property (nonatomic) BOOL isCodelessDebugLogEnabled;
+		[Abstract]
+		[Export ("isCodelessDebugLogEnabled")]
+		bool CodelessDebugLogEnabled { get; set; }
 
-		// @property (getter = isAutoLogAppEventsEnabled, assign, nonatomic, class) BOOL autoLogAppEventsEnabled;
-		[Static]
-		[Export ("autoLogAppEventsEnabled")]
-		bool AutoLogAppEventsEnabled { [Bind ("isAutoLogAppEventsEnabled")] get; set; }
+		// @required @property (nonatomic) BOOL isAdvertiserIDCollectionEnabled;
+		[Abstract]
+		[Export ("isAdvertiserIDCollectionEnabled")]
+		bool AdvertiserIdCollectionEnabled { get; set; }
 
-		// @property (getter = isCodelessDebugLogEnabled, assign, nonatomic, class) BOOL codelessDebugLogEnabled;
-		[Static]
-		[Export ("codelessDebugLogEnabled")]
-		bool CodelessDebugLogEnabled { [Bind ("isCodelessDebugLogEnabled")] get; set; }
+		// @required @property (readonly, nonatomic) BOOL isSKAdNetworkReportEnabled;
+		[Abstract]
+		[Export ("isSKAdNetworkReportEnabled")]
+		bool SKAdNetworkReportEnabled { get; }
 
-		// @property (getter = isAdvertiserIDCollectionEnabled, assign, nonatomic, class) BOOL advertiserIDCollectionEnabled;
-		[Static]
-		[Export ("advertiserIDCollectionEnabled")]
-		bool AdvertiserIdCollectionEnabled { [Bind ("isAdvertiserIDCollectionEnabled")] get; set; }
+		// @required @property (nonatomic) BOOL isGraphErrorRecoveryEnabled;
+		[Abstract]
+		[Export ("isGraphErrorRecoveryEnabled")]
+		bool GraphErrorRecoveryEnabled { get; set; }
 
-		[Static]
-		[Export ("SKAdNetworkReportEnabled")]
-		bool SKAdNetworkReportEnabled { [Bind ("isSKAdNetworkReportEnabled")] get; set; }
-
-		// @property (getter = shouldLimitEventAndDataUsage, assign, nonatomic, class) BOOL limitEventAndDataUsage;
-		[Static]
-		[Export ("limitEventAndDataUsage")]
-		bool LimitEventAndDataUsage { [Bind ("shouldLimitEventAndDataUsage")] get; set; }
-
-		// @property (getter = isGraphErrorRecoveryEnabled, assign, nonatomic, class) BOOL graphErrorRecoveryEnabled;
-		[Static]
-		[Export ("graphErrorRecoveryEnabled")]
-		bool GraphErrorRecoveryEnabled { [Bind ("isGraphErrorRecoveryEnabled")] get; set; }
-
-		// @property (copy, nonatomic, class) NSString * _Null_unspecified appID;
-		[Static]
+		// @required @property (copy, nonatomic) NSString * _Nullable appID;
+		[Abstract]
 		[NullAllowed]
 		[Export ("appID")]
 		string AppId { get; set; }
 
-		// @property (copy, nonatomic, class) NSString * _Null_unspecified appURLSchemeSuffix;
-		[Static]
+		// @required @property (copy, nonatomic) NSString * _Nullable appURLSchemeSuffix;
+		[Abstract]
 		[NullAllowed]
 		[Export ("appURLSchemeSuffix")]
 		string AppUrlSchemeSuffix { get; set; }
 
-		// @property (copy, nonatomic, class) NSString * _Null_unspecified clientToken;
-		[Static]
+		// @required @property (copy, nonatomic) NSString * _Nullable clientToken;
+		[Abstract]
 		[NullAllowed]
 		[Export ("clientToken")]
 		string ClientToken { get; set; }
 
-		// @property (copy, nonatomic, class) NSString * _Null_unspecified displayName;
-		[Static]
+		// @required @property (copy, nonatomic) NSString * _Nullable userAgentSuffix;
+		[Abstract]
 		[NullAllowed]
-		[Export ("displayName")]
+		[Export ("userAgentSuffix")]
+		string UserAgentSuffix { get; set; }
+
+		// @required @property (copy, nonatomic) NSString * _Nullable displayName;
+		[Abstract]
+		[NullAllowed, Export ("displayName")]
 		string DisplayName { get; set; }
 
-		// @property (copy, nonatomic, class) NSString * _Null_unspecified facebookDomainPart;
-		[Static]
+		// @required @property (copy, nonatomic) NSString * _Nullable facebookDomainPart;
+		[Abstract]
 		[NullAllowed]
 		[Export ("facebookDomainPart")]
 		string FacebookDomainPart { get; set; }
 
-		// @property (copy, nonatomic, class) NSSet<NSString *> * _Nonnull loggingBehaviors;
-		[Internal]
-		[Static]
+		// @required @property (copy, nonatomic) NSSet<FBSDKLoggingBehavior> * _Nonnull loggingBehaviors;
+		[Abstract]
 		[Export ("loggingBehaviors", ArgumentSemantic.Copy)]
-		NSSet _LoggingBehaviors { get; set; }
+		NSSet<NSString> LoggingBehaviors { get; set; }
 
-		// @property (copy, nonatomic, class) NSString * _Null_unspecified graphAPIVersion;
-		[Static]
+		// @required @property (copy, nonatomic) NSString * _Nonnull graphAPIVersion;
+		[Abstract]
 		[Export ("graphAPIVersion")]
-		string GraphApiVersion { get; set; }
+		string GraphAPIVersion { get; set; }
 
-		[Static]
-		[Export ("advertiserTrackingEnabled")]
-		bool AdvertiserTrackingEnabled { [Bind ("isAdvertiserTrackingEnabled")] get; set; }
+		// @required @property (nonatomic) BOOL isAdvertiserTrackingEnabled;
+		[Abstract]
+		[Export ("isAdvertiserTrackingEnabled")]
+		bool AdvertiserTrackingEnabled { get; set; }
 
-		// +(void)setDataProcessingOptions:(NSArray<NSString *> * _Nullable)options;
-		[Static]
+		// @required -(void)setDataProcessingOptions:(NSArray<NSString *> * _Nullable)options;
+		[Abstract]
 		[Export ("setDataProcessingOptions:")]
 		void SetDataProcessingOptions ([NullAllowed] string[] options);
 
-		// +(void)setDataProcessingOptions:(NSArray<NSString *> * _Nullable)options country:(int)country state:(int)state;
-		[Static]
+		// @required @property (readonly, nonatomic) BOOL isDataProcessingRestricted;
+		[Abstract]
+		[Export ("isDataProcessingRestricted")]
+		bool DataProcessingRestricted { get; }
+
+		// @required @property (readonly, nonatomic) BOOL isATETimeSufficientlyDelayed;
+		[Abstract]
+		[Export ("isATETimeSufficientlyDelayed")]
+		bool ATETimeSufficientlyDelayed { get; }
+
+		// @required @property (readonly, nonatomic) FBSDKAdvertisingTrackingStatus advertisingTrackingStatus;
+		[Abstract]
+		[Export ("advertisingTrackingStatus")]
+		AdvertisingTrackingStatus AdvertisingTrackingStatus { get; }
+
+		// @required @property (readonly, copy, nonatomic) NSDate * _Nullable installTimestamp;
+		[Abstract]
+		[NullAllowed, Export ("installTimestamp", ArgumentSemantic.Copy)]
+		NSDate InstallTimestamp { get; }
+
+		// @required @property (readonly, copy, nonatomic) NSDate * _Nullable advertiserTrackingEnabledTimestamp;
+		[Abstract]
+		[NullAllowed, Export ("advertiserTrackingEnabledTimestamp", ArgumentSemantic.Copy)]
+		NSDate AdvertiserTrackingEnabledTimestamp { get; }
+
+		// @required @property (nonatomic) BOOL isEventDataUsageLimited;
+		[Abstract]
+		[Export ("isEventDataUsageLimited")]
+		bool EventDataUsageLimited { get; set; }
+
+		// @required @property (nonatomic) BOOL shouldUseTokenOptimizations;
+		[Abstract]
+		[Export ("shouldUseTokenOptimizations")]
+		bool ShouldUseTokenOptimizations { get; set; }
+
+		// @required @property (readonly, copy, nonatomic) NSString * _Nullable graphAPIDebugParameterValue;
+		[Abstract]
+		[NullAllowed, Export ("graphAPIDebugParameterValue")]
+		string GraphApiDebugParameterValue { get; }
+
+		// @required @property (nonatomic) BOOL shouldUseCachedValuesForExpensiveMetadata;
+		[Abstract]
+		[Export ("shouldUseCachedValuesForExpensiveMetadata")]
+		bool ShouldUseCachedValuesForExpensiveMetadata { get; set; }
+
+		// @required @property (readonly, copy, nonatomic) NSDictionary<NSString *,id> * _Nullable persistableDataProcessingOptions;
+		[Abstract]
+		[NullAllowed, Export ("persistableDataProcessingOptions", ArgumentSemantic.Copy)]
+		NSDictionary<NSString, NSObject> PersistableDataProcessingOptions { get; }
+
+		// @required @property (nonatomic) BOOL isDomainErrorEnabled;
+		[Abstract]
+		[Export ("isDomainErrorEnabled")]
+		bool DomainErrorEnabled { get; set; }
+
+		// @required -(void)setDataProcessingOptions:(NSArray<NSString *> * _Nullable)options country:(int32_t)country state:(int32_t)state;
+		[Abstract]
 		[Export ("setDataProcessingOptions:country:state:")]
 		void SetDataProcessingOptions ([NullAllowed] string[] options, int country, int state);
-
-		// +(void)enableLoggingBehavior:(FBSDKLoggingBehavior _Nonnull)loggingBehavior;
-		[Static]
-		[Export ("enableLoggingBehavior:")]
-		void EnableLoggingBehavior ([BindAs (typeof (LoggingBehavior))] NSString loggingBehavior);
-
-		// +(void)disableLoggingBehavior:(FBSDKLoggingBehavior _Nonnull)loggingBehavior;
-		[Static]
-		[Export ("disableLoggingBehavior:")]
-		void DisableLoggingBehavior ([BindAs (typeof (LoggingBehavior))] NSString loggingBehavior);
 	}
 
-	// @interface FBSDKURL : NSObject
+	// @interface FBSDKSettings : NSObject <FBSDKSettingsLogging, FBSDKSettings, FBSDKClientTokenProviding>
+	[BaseType (typeof(NSObject), Name = "FBSDKSettings")]
+	interface Settings : SettingsProtocol
+	{
+		// @property (readonly, nonatomic, strong, class) FBSDKSettings * _Nonnull sharedSettings;
+		[Static]
+		[Export ("sharedSettings", ArgumentSemantic.Strong)]
+		Settings SharedSettings { get; }
+
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull defaultGraphAPIVersion;
+		[Export ("defaultGraphAPIVersion")]
+		string DefaultGraphApiVersion { get; }
+
+		// @property (nonatomic) CGFloat JPEGCompressionQuality;
+		[Export ("JPEGCompressionQuality")]
+		nfloat JpegCompressionQuality { get; set; }
+
+		// -(void)enableLoggingBehavior:(FBSDKLoggingBehavior _Nonnull)loggingBehavior;
+		[Export ("enableLoggingBehavior:")]
+		void EnableLoggingBehavior (string loggingBehavior);
+
+		// -(void)disableLoggingBehavior:(FBSDKLoggingBehavior _Nonnull)loggingBehavior;
+		[Export ("disableLoggingBehavior:")]
+		void DisableLoggingBehavior (string loggingBehavior);
+	}
+
+	// @interface FBSDKURL : NSObject <FBSDKAppLinkURL>
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKURL")]
 	interface Url {
-		// +(FBSDKURL * _Nonnull)URLWithURL:(NSURL * _Nonnull)url;
+		// +(instancetype _Nonnull)URLWithURL:(NSURL * _Nonnull)url __attribute__((swift_name("init(url:)")));
 		[Static]
 		[Export ("URLWithURL:")]
 		Url Create (NSUrl url);
 
-		// +(FBSDKURL * _Nonnull)URLWithInboundURL:(NSURL * _Nonnull)url sourceApplication:(NSString * _Nonnull)sourceApplication;
+		// +(instancetype _Nonnull)URLWithInboundURL:(NSURL * _Nonnull)url sourceApplication:(NSString * _Nonnull)sourceApplication __attribute__((swift_name("init(inboundURL:sourceApplication:)")));
 		[Static]
 		[Export ("URLWithInboundURL:sourceApplication:")]
 		Url Create (NSUrl url, string sourceApplication);
@@ -1342,37 +1374,27 @@ namespace Facebook.CoreKit {
 	[BaseType (typeof (NSObject), Name = "FBSDKUtility")]
 	interface Utility {
 
-		// +(NSDictionary *)dictionaryWithQueryString:(NSString *)queryString;
+		// +(NSDictionary<NSString *,NSString *> * _Nonnull)dictionaryWithQueryString:(NSString * _Nonnull)queryString __attribute__((swift_name("dictionary(withQuery:)")));
 		[Static]
 		[Export ("dictionaryWithQueryString:")]
 		NSDictionary CreateDictionary (string queryString);
 
-		[Obsolete ("Use CreateDictionary method instead. This will be removed in future versions.")]
-		[Static]
-		[Wrap ("CreateDictionary (queryString)")]
-		NSDictionary DictionaryWithQueryString (string queryString);
-
-		// +(NSString *)queryStringWithDictionary:(NSDictionary *)dictionary error:(NSError **)errorRef;
+		// +(NSString * _Nonnull)queryStringWithDictionary:(NSDictionary<NSString *,id> * _Nonnull)dictionary error:(NSError * _Nullable * _Nullable)errorRef __attribute__((swift_name("query(from:)"))) __attribute__((swift_error("nonnull_error")));
 		[Static]
 		[Export ("queryStringWithDictionary:error:")]
 		string CreateQueryString ([NullAllowed] NSDictionary dictionary, out NSError errorRef);
 
-		[Obsolete ("Use CreateQueryString method instead. This will be removed in future versions.")]
-		[Static]
-		[Wrap ("CreateQueryString (dictionary, out errorRef)")]
-		string QueryStringWithDictionary ([NullAllowed] NSDictionary dictionary, out NSError errorRef);
-
-		// +(NSString *)URLDecode:(NSString *)value;
+		// +(NSString * _Nonnull)URLDecode:(NSString * _Nonnull)value __attribute__((swift_name("decode(urlString:)")));
 		[Static]
 		[Export ("URLDecode:")]
 		string UrlDecode (string value);
 
-		// +(NSString *)URLEncode:(NSString *)value;
+		// +(NSString * _Nonnull)URLEncode:(NSString * _Nonnull)value __attribute__((swift_name("encode(urlString:)")));
 		[Static]
 		[Export ("URLEncode:")]
 		string UrlEncode (string value);
 
-		// +(dispatch_source_t)startGCDTimerWithInterval:(double)interval block:(dispatch_block_t)block;
+		// +(dispatch_source_t _Nonnull)startGCDTimerWithInterval:(double)interval block:(dispatch_block_t _Nonnull)block;
 		[Internal]
 		[Static]
 		[Export ("startGCDTimerWithInterval:block:")]
@@ -1382,7 +1404,7 @@ namespace Facebook.CoreKit {
 		[Wrap ("new DispatchSource.Timer (_StartGcdTimer (interval, block))")]
 		DispatchSource StartGcdTimer (double interval, Action block);
 
-		// +(void)stopGCDTimer:(dispatch_source_t)timer;
+		// +(void)stopGCDTimer:(dispatch_source_t _Nonnull)timer;
 		[Internal]
 		[Static]
 		[Export ("stopGCDTimer:")]
@@ -1392,7 +1414,7 @@ namespace Facebook.CoreKit {
 		[Wrap ("_StopGcdTimer (timer.Handle)")]
 		void StopGcdTimer (DispatchSource timer);
 
-		// +(NSString * _Nullable)SHA256Hash:(NSObject * _Nullable)input;
+		// +(NSString * _Nullable)SHA256Hash:(NSObject * _Nonnull)input __attribute__((swift_name("sha256Hash(_:)")));
 		[Static]
 		[return: NullAllowed]
 		[Export ("SHA256Hash:")]
@@ -1402,37 +1424,31 @@ namespace Facebook.CoreKit {
 	// @interface FBSDKWebViewAppLinkResolver : NSObject <FBSDKAppLinkResolving>
 	[BaseType (typeof (NSObject), Name = "FBSDKWebViewAppLinkResolver")]
 	interface WebViewAppLinkResolver : AppLinkResolving {
-		// +(instancetype _Nonnull)sharedInstance;
+		// @property (readonly, nonatomic, strong, class) NS_SWIFT_NAME(shared) FBSDKWebViewAppLinkResolver * sharedInstance __attribute__((swift_name("shared")));
 		[Static]
 		[Export ("sharedInstance", ArgumentSemantic.Strong)]
 		WebViewAppLinkResolver SharedInstance { get; }
 	}
 
-	[DisableDefaultCtor]
-	[BaseType (typeof (NSObject), Name = "FBSDKAppLinkResolverRequestBuilder")]
-	interface AppLinkResolverRequestBuilder {
-
-		[Export ("requestForURLs:")]
-		GraphRequest GetRequest (NSUrl[] urls);
-
-		[NullAllowed, Export ("getIdiomSpecificField")]
-		string IdiomSpecificField { get; }
-	}
-
+	// @interface FBSDKAuthenticationToken : NSObject <NSCopying, NSObject, NSSecureCoding, FBSDKAuthenticationTokenProviding>
 	[DisableDefaultCtor]
 	[BaseType (typeof (NSObject), Name = "FBSDKAuthenticationToken")]
 	interface AuthenticationToken : INSCopying, INSSecureCoding {
 
+		// @property (copy, nonatomic, class) NS_SWIFT_NAME(current) FBSDKAuthenticationToken * currentAuthenticationToken __attribute__((swift_name("current")));
 		[Static]
 		[NullAllowed, Export ("currentAuthenticationToken", ArgumentSemantic.Copy)]
 		AuthenticationToken CurrentAuthenticationToken { get; set; }
 
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull tokenString;
 		[Export ("tokenString")]
 		string TokenString { get; }
 
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull nonce;
 		[Export ("nonce")]
 		string Nonce { get; }
 
+		// @property (readonly, copy, nonatomic) NSString * _Nonnull graphDomain;
 		[Export ("graphDomain")]
 		string GraphDomain { get; }
 	}

@@ -22,11 +22,17 @@
           BeforeTargets="ResolveNativeReferences"
           Condition="('$(TargetFrameworks)' == '' AND '$(TargetFramework)' == '') OR '$(IsBindingProject)' == 'true'">
     <ItemGroup>
-      <_NativeReference Update="@(_NativeReference)" Condition="'%(_NativeReference._Id)' == '$(_FBSDKCoreKitId)' OR '%(_NativeReference._Id)' == '$(_FBAEMKitId)' OR '%(_NativeReference._Id)' == '$(_FBSDKCoreKit_BasicsId)'">
+      <_NativeReference Update="@(_NativeReference)" Condition="'%(_NativeReference._Id)' == '$(_FBSDKCoreKitId)' OR '%(_NativeReference._Id)' == '$(_FBAEMKitId)'">
         <Kind>Framework</Kind>
         <SmartLink>True</SmartLink>
         <ForceLoad>True</ForceLoad>
         <LinkerFlags>-ObjC</LinkerFlags>
+      </_NativeReference>
+      <_NativeReference Update="@(_NativeReference)" Condition="'%(_NativeReference._Id)' == '$(_FBSDKCoreKit_BasicsId)'">
+        <Kind>Framework</Kind>
+        <SmartLink>True</SmartLink>
+        <ForceLoad>True</ForceLoad>
+        <LinkerFlags>-ObjC -lz</LinkerFlags>
       </_NativeReference>
       <NativeReference Include="@(_NativeReference)" />
     </ItemGroup>
