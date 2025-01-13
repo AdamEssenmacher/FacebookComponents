@@ -1,3 +1,8 @@
+# Fork Notes:
+I have only updated the Core and Share SDKs (for both Android and iOS), and only tested basic app event tracking and sharing functionality.
+
+Feel free to open PRs to expand the functionality or fix any issues.
+
 # Xamarin Components for Facebook
 
 Xamarin creates and maintains Xamarin.Android and Xamarin.iOS bindings for Facebook SDKs.
